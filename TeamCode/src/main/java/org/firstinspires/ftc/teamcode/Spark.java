@@ -195,10 +195,13 @@ public class Spark {
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
+                /*
                 clawServo = hwMap.servo.get( "clawServo" );
                 smallArmServo = hwMap.servo.get( "smallArmServo" );
                 crabServo = hwMap.servo.get( "crabServo" );
+                */
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
+
 
                 allDriveMotors = new DcMotor[]{ motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight };
                 
@@ -234,12 +237,14 @@ public class Spark {
                 //Camera setup
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
+
+
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
-                clawServo = hwMap.servo.get( "clawServo" );
-                smallArmServo = hwMap.servo.get( "smallArmServo" );
-                crabServo = hwMap.servo.get( "crabServo" );
+                //clawServo = hwMap.servo.get( "clawServo" );
+                //smallArmServo = hwMap.servo.get( "smallArmServo" );
+                //crabServo = hwMap.servo.get( "crabServo" );
 
 
 

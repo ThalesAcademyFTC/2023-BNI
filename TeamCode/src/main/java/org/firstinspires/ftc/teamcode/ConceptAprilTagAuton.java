@@ -52,6 +52,7 @@ import java.util.List;
 public class ConceptAprilTagAuton extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
+    private Spark robot;
 
     /**
      * {@link #aprilTag} is the variable to store our instance of the AprilTag processor.
@@ -65,6 +66,28 @@ public class ConceptAprilTagAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        double speed = 0.5;
+
+        //Code for auton
+        robot.moveForwardInches(12 , speed);
+        //robot.sleep(rest);
+
+        //code for scanning spike mark goes here
+        //robot.sleep(rest);
+        //code for placing purple pixel goes here
+        //robot.sleep(rest);
+        robot.moveBackwardInches(9, speed);
+        //robot.sleep(rest);
+
+        robot.turnLeftDegrees(90, speed * 3/2);
+        //robot.sleep(rest);
+
+        robot.moveForwardInches(24 , speed);
+        //robot.sleep(rest);
+
+        robot.moveRightInches(24 , speed);
+        //robot.sleep(rest);
+
 
         initAprilTag();
 
