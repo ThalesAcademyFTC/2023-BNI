@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,9 +11,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.externaltelem;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+import java.util.List;
 
 public class Spark {
 
@@ -46,7 +51,7 @@ public class Spark {
      *telem is how we output to the drivers while they are using the robot
      * Also can be used for us to debug
      */
-    privatetelem telem;
+    private Telemetry telem;
 
     // Now, below you can define any global variables that you want to use in this library file.
 
@@ -195,11 +200,11 @@ public class Spark {
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
-                /*
+            
                 clawServo = hwMap.servo.get( "clawServo" );
                 smallArmServo = hwMap.servo.get( "smallArmServo" );
                 crabServo = hwMap.servo.get( "crabServo" );
-                */
+                
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
 
 
@@ -241,6 +246,7 @@ public class Spark {
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
+                motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
                 //clawServo = hwMap.servo.get( "clawServo" );
                 //smallArmServo = hwMap.servo.get( "smallArmServo" );
                 //crabServo = hwMap.servo.get( "crabServo" );
@@ -502,7 +508,7 @@ public class Spark {
     }
 
     // Vision Code below:
-    public void telemetryAprilTag( List<AprilTagDetection> currentDetections, AprilTagProcessor aprilTagProcessor ) {
+    public void telemetryAprilTag(List<AprilTagDetection> currentDetections, AprilTagProcessor aprilTagProcessor ) {
 
         currentDetections = aprilTagProcessor.getDetections();
         telem.addData("# AprilTags Detected", currentDetections.size());

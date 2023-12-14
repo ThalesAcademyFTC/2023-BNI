@@ -45,48 +45,49 @@ public class RoughScrimmageTeleop extends OpMode {
         
         //Claw open/close
         if (gamepad2.right_trigger > 0.25) {
-            robot.openClaw();
+            //robot.openClaw();
         
         } else if (gamepad2.left_trigger < 1) {
-            robot.closeClaw();
+            //robot.closeClaw();
         
         }
 
 
         //small arm
         if ( gamepad2.right_bumper ) {
-            robot.smallArmDeposit();
+            //robot.smallArmDeposit();
 
         } else if ( gamepad2.left_bumper ) {
-            robot.smallArmReset();
+            //robot.smallArmReset();
         
         }
 
 
         //Moves large arm up
         if ( gamepad2.right_stick_y > 0.3 ){
-           robot.setArmMotor( 0.65 );
+           robot.setArmMotor( gamepad2.right_stick_y );
         
         } else if ( gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor( -0.65 );
-        
+            robot.setArmMotor( gamepad2.right_stick_y );
+        } else {
+            robot.setArmMotor( 0 );
         }
 
         if (gamepad2.a) {
-            robot.crabServoPinch();   
+            //robot.crabServoPinch();   
             
         } else if (gamepad2.y) {
-            robot.crabServoUnPinch();
+           // robot.crabServoUnPinch();
         }
 
 
         //robot suspend
         if (gamepad2.x) {
-            robot.setMotorSuspend(0.2);
+            robot.setMotorSuspend(1);
             
         //robot desuspends
         } else if (gamepad2.b) {
-            robot.setMotorSuspend(-0.2);
+            robot.setMotorSuspend(-1);
         
         } else {
             robot.setMotorSuspend(0);
