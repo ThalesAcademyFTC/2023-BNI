@@ -39,6 +39,11 @@
     -->
 
     <LynxUsbDevice
+        name="Webcam 1"
+        serialNumber="BCE80520" parentModuleAddress="5">
+    </LynxUsbDevice>
+
+    <LynxUsbDevice
         name="Control Hub Portal"
         serialNumber="(embedded)" parentModuleAddress="5">
 
@@ -104,16 +109,17 @@
             signal, and set "port" appropriately.
 
             ************************************************************* -->
+            <!--
             <Servo name="clawServo" port="0" />
             <Servo name="smallArmServo" port="1" />
             <Servo name="crabServo" port="2" />
-            
+            -->
             
 
 
         </LynxModule>
 
-        <LynxModule name="Expansion Hub 2" port="3">
+        <LynxModule name="Expansion Hub 2" port="2">
 
             <!-- *************************************************************
 
@@ -125,6 +131,8 @@
             ************************************************************* -->
 
             <goBILDA5202SeriesMotor name="armMotor" port="0" />
+            <goBILDA5202SeriesMotor name="motorSuspend" port="1" />
+
             <!--
             <Servo name="clawServo" port="0" />
             <Servo name="crabServo" port="2" />
