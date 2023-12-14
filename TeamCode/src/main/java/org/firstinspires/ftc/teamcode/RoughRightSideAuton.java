@@ -14,7 +14,7 @@ public class RoughRightSideAuton extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
         runtime.reset();
 

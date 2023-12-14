@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Spark {
@@ -63,6 +65,8 @@ public class Spark {
     private IMU imu;
 
     private IMU.Parameters parameters;
+
+    public WebcamName webcamName;
 
     // Put CONSTANTS here
 
@@ -226,6 +230,9 @@ public class Spark {
                 );
 
                 imu.initialize( parameters );
+
+                //Camera setup
+                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 //Add arm mechanism hardware devices
 
@@ -489,6 +496,9 @@ public class Spark {
             x.setMode( DcMotor.RunMode.RUN_TO_POSITION );
         }
     }
+
+
+
 
 
 }
