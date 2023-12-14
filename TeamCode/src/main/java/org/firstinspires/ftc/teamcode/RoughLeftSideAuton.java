@@ -39,6 +39,7 @@ public class RoughLeftSideAuton extends LinearOpMode {
         double speed = 0.5;
         int rest = 100;
 
+        /*
         //Code for auton
         robot.moveForwardInches(12 , speed);   
         //robot.sleep(rest);
@@ -74,6 +75,8 @@ public class RoughLeftSideAuton extends LinearOpMode {
         
         robot.moveForwardInches(18, speed);
         //robot.sleep(rest);
+
+        */
 
         while (opModeIsActive() && runtime.milliseconds() > 30000){
 
