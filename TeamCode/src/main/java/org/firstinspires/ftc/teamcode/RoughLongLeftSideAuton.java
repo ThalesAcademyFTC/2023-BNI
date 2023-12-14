@@ -29,7 +29,7 @@ public class RoughLongLeftSideAuton extends LinearOpMode {
         //more code needed where indicated
 
         robot.moveForwardInches(12 , speed);   
-        //robot.sleep(rest);
+        //sleep(rest);
 
         /*robot scans for spike mark
         robot rests

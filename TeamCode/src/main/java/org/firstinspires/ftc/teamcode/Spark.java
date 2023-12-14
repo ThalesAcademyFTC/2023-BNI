@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.externaltelem;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -42,11 +42,11 @@ public class Spark {
     private Drivetrain drive;
 
     /**
-     * This is the telemetry object that the library will be using to write to the driver hub
-     * Telemetry is how we output to the drivers while they are using the robot
+     * This is thetelem object that the library will be using to write to the driver hub
+     *telem is how we output to the drivers while they are using the robot
      * Also can be used for us to debug
      */
-    private Telemetry telem;
+    privatetelem telem;
 
     // Now, below you can define any global variables that you want to use in this library file.
 
@@ -129,7 +129,7 @@ public class Spark {
         //Sets the hardwareMap
         hwMap = opmode.hardwareMap;
 
-        //Sets the telemetry
+        //Sets thetelem
         telem = opmode.telemetry;
 
         //Sets the drivetrain
@@ -236,7 +236,6 @@ public class Spark {
 
                 //Camera setup
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
-
 
 
                 //Add arm mechanism hardware devices
@@ -501,6 +500,63 @@ public class Spark {
             x.setMode( DcMotor.RunMode.RUN_TO_POSITION );
         }
     }
+
+    // Vision Code below:
+    public void telemetryAprilTag( List<AprilTagDetection> currentDetections, AprilTagProcessor aprilTagProcessor ) {
+
+        currentDetections = aprilTagProcessor.getDetections();
+        telem.addData("# AprilTags Detected", currentDetections.size());
+
+        // Step through the list of detections and display info for each one.
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.metadata != null) {
+                telem.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
+                telem.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
+                telem.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+                telem.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
+            } else {
+                telem.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
+                telem.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
+            }
+        }   // end for() loop
+
+        // Add "key" information to telemetry
+        telem.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
+        telem.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
+        telem.addLine("RBE = Range, Bearing & Elevation");
+
+    }   // end method telemetry AprilTag()
+
+    public void initAprilTag( VisionPortal visionPortal, AprilTagProcessor aprilTagProcessor ) {
+        //Initialize the AprilTag Detection
+        aprilTagProcessor = new AprilTagProcessor.Builder()
+                //.setDrawAxes(false)
+                //.setDrawCubeProjection(false)
+                //.setDrawTagOutline(true)
+                //.setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
+                //.setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
+                //.setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
+
+                // == CAMERA CALIBRATION ==
+                // If you do not manually specify calibration parameters, the SDK will attempt
+                // to load a predefined calibration for your camera.
+                //.setLensIntrinsics(578.272, 578.272, 402.145, 221.506)
+
+                // ... these parameters are fx, fy, cx, cy.
+
+                .build();
+
+        // Create the vision portal by using a builder.
+        VisionPortal.Builder builder = new VisionPortal.Builder();
+
+        builder.setCamera(webcamName);
+
+        // Set and enable the processor.
+        builder.addProcessor(aprilTagProcessor);
+
+        // Build the Vision Portal, using the above settings.
+        visionPortal = builder.build();
+    } 
 
 
 
