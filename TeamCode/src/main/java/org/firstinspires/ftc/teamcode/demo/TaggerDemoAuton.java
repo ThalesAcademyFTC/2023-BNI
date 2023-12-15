@@ -62,6 +62,8 @@ public class TaggerDemoAuton extends LinearOpMode {
         //This can help you determine where the april tag is relative to the robot.
         //I recommend testing using telemetry to see the results you get :)
         while ( tagger.leftDetected() && tagger.getLeftLocation().x < 10 ) {
+            
+            tagger.scanWithTelemetry();
 
             // Move left until in precise position.
             robot.moveLeft( 0.1 );
