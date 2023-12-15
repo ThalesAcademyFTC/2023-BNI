@@ -19,18 +19,18 @@ public class RoughLeftSideAuton extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    private AprilTagProcessor aprilTagProcessor;
-    private VisionPortal visionPortal;
-
-    private List<AprilTagDetection> currentDetections;
+    private Tagger tagger;
 
 
     @Override
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+
+        // TODO Change the team to whichever team this auton is for
+        tagger = new Tagger( this, robot.webcamName, Tagger.Team.BLUE);
         runtime.reset();
 
-        robot.initAprilTag( visionPortal, aprilTagProcessor );
+        tagger.init();
 
         waitForStart();
   
@@ -75,11 +75,11 @@ public class RoughLeftSideAuton extends LinearOpMode {
         //robot.sleep(rest);
 
         
-
+        // This just fills telemetry data with the detected tag.
         if (opModeIsActive()) {
             while (opModeIsActive()) {
 
-                robot.telemetryAprilTag( currentDetections, aprilTagProcessor );
+                tagger.scanWithTelemetry();
 
                 // Push telemetry to the Driver Station.
                 telemetry.update();
@@ -90,7 +90,7 @@ public class RoughLeftSideAuton extends LinearOpMode {
         }
 
         // Save more CPU resources when camera is no longer needed.
-        visionPortal.close();
+        tagger.close();
 
     }
 
