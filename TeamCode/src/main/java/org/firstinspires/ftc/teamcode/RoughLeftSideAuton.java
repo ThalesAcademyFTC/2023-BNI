@@ -21,13 +21,17 @@ public class RoughLeftSideAuton extends LinearOpMode {
 
     private Tagger tagger;
 
+    private Spark.Team team = Spark.Team.BLUE;
+
+
+
 
     @Override
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
 
         // TODO Change the team to whichever team this auton is for
-        tagger = new Tagger( this, robot.webcamName, Tagger.Team.BLUE);
+        tagger = new Tagger( this, robot.webcamName, team);
         runtime.reset();
 
         tagger.init();

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.demo;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Spark;
 import org.firstinspires.ftc.teamcode.Tagger;
 
 @Autonomous(name="TaggerDemoAuton")
+@Disabled
 public class TaggerDemoAuton extends LinearOpMode {
 
     private Spark robot;
@@ -16,13 +18,15 @@ public class TaggerDemoAuton extends LinearOpMode {
 
     private Tagger tagger;
 
+    private Spark.Team team = Spark.Team.BLUE;
+
 
     @Override
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
 
         // TODO Change the team to whichever team this auton is for
-        tagger = new Tagger( this, robot.webcamName, Tagger.Team.BLUE);
+        tagger = new Tagger( this, robot.webcamName, team);
         runtime.reset();
 
         tagger.init();
@@ -62,7 +66,7 @@ public class TaggerDemoAuton extends LinearOpMode {
         //This can help you determine where the april tag is relative to the robot.
         //I recommend testing using telemetry to see the results you get :)
         while ( tagger.leftDetected() && tagger.getLeftLocation().x < 10 ) {
-            
+
             tagger.scanWithTelemetry();
 
             // Move left until in precise position.

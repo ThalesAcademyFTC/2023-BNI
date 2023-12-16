@@ -8,6 +8,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.teamcode.Spark.Team;
 
 import java.util.List;
 
@@ -33,10 +34,35 @@ public class Tagger {
 
     private Team team;
 
-    public enum Team {
-        RED,
-        BLUE
-    }
+    /**
+     * The integer value of the AprilTag ID for the Blue Left April Tag
+     */
+    private final int BLUE_LEFT = 1;
+
+    /**
+     * The integer value of the AprilTag ID for the Blue Center April Tag
+     */
+    private final int BLUE_CENTER = 2;
+
+    /**
+     * The integer value of the AprilTag ID for the Blue Right April Tag
+     */
+    private final int BLUE_RIGHT = 3;
+
+    /**
+     * The integer value of the AprilTag ID for the Red Left April Tag
+     */
+    private final int RED_LEFT = 4;
+
+    /**
+     * The integer value of the AprilTag ID for the Red Center April Tag
+     */
+    private final int RED_CENTER = 5;
+
+    /**
+     * The integer value of the AprilTag ID for the Red Right April Tag
+     */
+    private final int RED_RIGHT = 6;
 
     /**
      * Constructs a Tagger object using the auton object that is passed through.
@@ -184,12 +210,13 @@ public class Tagger {
      * @return the ftcpose value for the detection
      */
     public AprilTagPoseFtc getLeftLocation() {
-        for (AprilTagDetection detection : currentDetections) {
-            if ( detection.id == getLeftId() ) {
-                return detection.ftcPose;
-            }
+        AprilTagDetection detection = getDetectionById( getLeftId() );
+
+        if ( detection == null ) {
+            return null;
+        } else {
+            return detection.ftcPose;
         }
-        return null;
     }
 
     /**
@@ -197,12 +224,13 @@ public class Tagger {
      * @return the ftcpose value for the detection
      */
     public AprilTagPoseFtc getCenterLocation() {
-        for (AprilTagDetection detection : currentDetections) {
-            if ( detection.id == getCenterId() ) {
-                return detection.ftcPose;
-            }
+        AprilTagDetection detection = getDetectionById( getCenterId() );
+
+        if ( detection == null ) {
+            return null;
+        } else {
+            return detection.ftcPose;
         }
-        return null;
     }
 
     /**
@@ -210,43 +238,70 @@ public class Tagger {
      * @return the ftcpose value for the detection
      */
     public AprilTagPoseFtc getRightLocation() {
-        for (AprilTagDetection detection : currentDetections) {
-            if ( detection.id == getRightId() ) {
-                return detection.ftcPose;
-            }
+        AprilTagDetection detection = getDetectionById( getRightId() );
+
+        if ( detection == null ) {
+            return null;
+        } else {
+            return detection.ftcPose;
         }
-        return null;
     }
 
+    /**
+     * Gets the ID of the left april tag based on the team, RED or BLUE
+     * @return the id of the left april tag
+     */
     private int getLeftId() {
-        int left = 1;
+        int left = BLUE_LEFT;
 
         if ( team == Team.RED) {
-            left = 4;
+            left = RED_LEFT;
         }
         return left;
     }
 
+    /**
+     * Gets the ID of the center april tag based on the team, RED or BLUE
+     * @return the id of the center april tag
+     */
     private int getCenterId() {
 
         // Set the id of the center april tag depending on which team the auton is for
-        int center = 2;
+        int center = BLUE_CENTER;
 
         if ( team == Team.RED) {
-            center = 5;
+            center = RED_CENTER;
         }
         return center;
     }
 
+    /**
+     * Gets the ID of the right april tag based on the team, RED or BLUE
+     * @return the id of the right april tag
+     */
     private int getRightId() {
 
         // Set the id of the right april tag depending on which team the auton is for
-        int right = 3;
+        int right = BLUE_RIGHT;
 
         if ( team == Team.RED) {
-            right = 6;
+            right = RED_RIGHT;
         }
         return right;
+    }
+
+    /**
+     * Returns the first detection found with the same ID
+     * @param id the id to search for
+     * @return the first detection found with the given ID
+     */
+    private AprilTagDetection getDetectionById( int id ) {
+        for (AprilTagDetection detection : currentDetections) {
+            if ( detection.id == id ) {
+                return detection;
+            }
+        }
+        return null;
     }
 
 

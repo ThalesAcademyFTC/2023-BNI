@@ -42,6 +42,14 @@ public class Spark {
     }
 
     /**
+     * This ENUM lists the teams that you can be in FIRST Tech Challenge. Useful for simplifying TeleOp
+     */
+    public enum Team {
+        RED,
+        BLUE
+    }
+
+    /**
      * Here is an example of us DECLARING the Drivetrain variable type drive
      * This drive can be set to any values inside of the Drivetrain enum list above
      */
