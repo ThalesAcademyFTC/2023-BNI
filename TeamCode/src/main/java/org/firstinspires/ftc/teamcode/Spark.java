@@ -510,10 +510,10 @@ public class Spark {
         while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
             for (DcMotor x : allDriveMotors) {
                 if (x.getCurrentPosition() >= x.getTargetPosition() + 2 || x.getCurrentPosition() <= x.getTargetPosition() - 2) {
-                    telem.addData("motor1", motorFrontLeft.getCurrentPosition());
-                    telem.addData("motor2", motorFrontRight.getCurrentPosition());
-                    telem.addData("motor3", motorBackLeft.getCurrentPosition());
-                    telem.addData("motor4", motorBackRight.getCurrentPosition());
+                    telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
+                    telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
+                    telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
+                    telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
                     telem.update();
                 } else {
                     finished = true;
