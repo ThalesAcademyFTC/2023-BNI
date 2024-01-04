@@ -32,6 +32,13 @@ public class RoughScrimmageTeleop extends OpMode {
         //Right bumper claw open
         //Left bumper claw close
 
+        telemetry.addData("front left encoder:", robot.motorFrontLeft.getCurrentPosition());
+        telemetry.addData("front right encoder:", robot.motorFrontRight.getCurrentPosition());
+        telemetry.addData("back left encoder:", robot.motorBackLeft.getCurrentPosition());
+        telemetry.addData("back right encoder:", robot.motorBackRight.getCurrentPosition());
+
+        telemetry.update();
+
 
         //First, define some key variables for movement
         double y = gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
