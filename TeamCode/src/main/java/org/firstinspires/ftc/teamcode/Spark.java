@@ -217,8 +217,6 @@ public class Spark {
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
 
 
-                allDriveMotors = new DcMotor[]{ motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight };
-                
                 break;
 
             case MECHANUM:
@@ -258,6 +256,7 @@ public class Spark {
                 //clawServo = hwMap.servo.get( "clawServo" );
                 //smallArmServo = hwMap.servo.get( "smallArmServo" );
                 //crabServo = hwMap.servo.get( "crabServo" );
+                allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
 
 
