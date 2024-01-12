@@ -206,15 +206,13 @@ public class Spark {
 
                 imu.initialize( parameters );
 
+                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+
                 //Add arm mechanism hardware devices
 
-                armMotor = hwMap.dcMotor.get( "armMotor" );
+                //armMotor = hwMap.dcMotor.get( "armMotor" );
             
-                clawServo = hwMap.servo.get( "clawServo" );
-                smallArmServo = hwMap.servo.get( "smallArmServo" );
-                crabServo = hwMap.servo.get( "crabServo" );
-                
-                motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
+               // clawServo = hwMap.servo.get( "clawServo" );
 
 
                 break;

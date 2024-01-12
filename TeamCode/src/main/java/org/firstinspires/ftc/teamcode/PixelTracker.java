@@ -19,7 +19,7 @@ public class PixelTracker extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+        robot = new Spark(this, Spark.Drivetrain.MISTRO);
 
         finder = new Finder( this, robot.webcamName, team);
         runtime.reset();

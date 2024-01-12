@@ -94,7 +94,7 @@ public class Finder {
                 //.setIsModelTensorFlow2(true)
                 //.setIsModelQuantized(true)
                 //.setModelInputSize(300)
-                //.setModelAspectRatio(16.0 / 9.0)
+                .setModelAspectRatio(16.0 / 9.0)
 
                 .build();
 
@@ -119,6 +119,8 @@ public class Finder {
 
         // Set and enable the processor.
         builder.addProcessor(tfod);
+
+        builder.enableLiveView(true);
 
         // Build the Vision Portal, using the above settings.
         visionPortal = builder.build();
