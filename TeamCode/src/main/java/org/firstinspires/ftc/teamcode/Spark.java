@@ -85,19 +85,19 @@ public class Spark {
     // Put CONSTANTS here
 
     /** Constant for the claw open position */
-    static final double OPEN_CLAW_POSITION = 0.5;
+    static final double OPEN_CLAW_POSITION = 1;
 
     /** Constant for the close claw position */
     static final double CLOSE_CLAW_POSITION = 0;
     
     /** Consant for small arm servo depositing position */
-    static final double DEPOSIT_ARM_POSITION = -1;
+    static final double DEPOSIT_ARM_POSITION = 0.25;
     
     /** Costant for resetting the small arm servo position */
-    static final double RESET_ARM_POSITION = 0.78;
+    static final double RESET_ARM_POSITION = 0.8;
 
     /** Constant for pinching a pixel with the large arm */  
-    static final double PINCH_CLAW_POSITION = 0.7;
+    static final double PINCH_CLAW_POSITION = 1;
 
     /** Constant for releasing a pixel with the large arm */
     static final double UNPINCH_CLAW_POSITION = 0;
@@ -253,8 +253,8 @@ public class Spark {
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
-                //clawServo = hwMap.servo.get( "clawServo" );
-                //smallArmServo = hwMap.servo.get( "smallArmServo" );
+                clawServo = hwMap.servo.get( "clawServo" );
+                smallArmServo = hwMap.servo.get( "smallArmServo" );
                 //crabServo = hwMap.servo.get( "crabServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
@@ -450,11 +450,16 @@ public class Spark {
 
         prepareEncoders();
 
-        for( DcMotor x: allDriveMotors ) {
+        /* for( DcMotor x: allDriveMotors ) {
 
             x.setTargetPosition( tickTarget );
 
-        }
+        } */
+
+        motorFrontRight.setTargetPosition( tickTarget );
+        motorBackLeft.setTargetPosition( tickTarget );
+        motorBackRight.setTargetPosition( tickTarget );
+        motorFrontLeft.setTargetPosition( tickTarget );
 
         // Move forward. Think of this like a coordinate plane :)
         move( 0, speed, 0 );
@@ -531,15 +536,23 @@ public class Spark {
     }
 
     public void prepareEncoders(){
-        for (DcMotor x : allDriveMotors) {
+        /* for (DcMotor x : allDriveMotors) {
             x.setPower(0);
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            x.setMode( DcMotor.RunMode.RUN_TO_POSITION );
-        }
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        } */
+
+        motorBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
-
-
-
-
-
 }

@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp()
-
-
+@TeleOp(name="RoughScrimmageTeleop")
 public class RoughScrimmageTeleop extends OpMode {
 
     Spark robot;
@@ -52,30 +49,30 @@ public class RoughScrimmageTeleop extends OpMode {
         
         //Claw open/close
         if (gamepad2.right_trigger > 0.25) {
-            //robot.openClaw();
+            robot.openClaw();
         
-        } else if (gamepad2.left_trigger < 1) {
-            //robot.closeClaw();
+        } else if (gamepad2.left_trigger > 0.25) {
+            robot.closeClaw();
         
         }
 
 
         //small arm
         if ( gamepad2.right_bumper ) {
-            //robot.smallArmDeposit();
+            robot.smallArmDeposit();
 
         } else if ( gamepad2.left_bumper ) {
-            //robot.smallArmReset();
+            robot.smallArmReset();
         
         }
 
 
         //Moves large arm up
         if ( gamepad2.right_stick_y > 0.3 ){
-           robot.setArmMotor( gamepad2.right_stick_y );
+            robot.setArmMotor( gamepad2.right_stick_y + 0.7);
         
         } else if ( gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor( gamepad2.right_stick_y );
+            robot.setArmMotor( gamepad2.right_stick_y + 0.7);
         } else {
             robot.setArmMotor( 0 );
         }
@@ -100,14 +97,7 @@ public class RoughScrimmageTeleop extends OpMode {
             robot.setMotorSuspend(0);
             
         }
-/*
-        if (gamepad2.x) {
-            robot.armMotor(0.5);
-        } else if (gamepad2.b) {
-            robot.armMotor(-0.5);
-    }
 
-*/
 //keep this at end
         if (gamepad1.atRest()) robot.rest();
     

@@ -7,16 +7,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name="AutonTest")
 public class AutonTest extends LinearOpMode {
 
-    private Spark robot;
+    Spark robot;
 
     private ElapsedTime runtime = new ElapsedTime();
 
     private Tagger tagger;
 
     private Spark.Team team = Spark.Team.BLUE;
-
-
-
 
     @Override
     public void runOpMode() {
@@ -30,7 +27,7 @@ public class AutonTest extends LinearOpMode {
 
         waitForStart();
 
-        robot.moveForwardInches(12, 0.5);
+        robot.moveForwardInches(48, 0.5);
 
         
         // This just fills telemetry data with the detected tag.
