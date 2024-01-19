@@ -27,7 +27,7 @@ public class RoughRightSideAuton extends LinearOpMode {
         //code below makes the robot move forward, scan for the spike mark, and places purple pixel
         //more code needed where indicated 
 
-        robot.moveForwardInches(12, speed);
+        robot.moveForwardInches(100, speed);
         //robot.sleep(rest);
 
         /*robot scans for spike mark
