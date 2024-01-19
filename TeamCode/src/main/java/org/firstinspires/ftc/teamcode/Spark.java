@@ -450,8 +450,8 @@ public class Spark {
 
         for ( DcMotor x: allDriveMotors ) {
 
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             x.setTargetPosition( tickTarget );
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
 
@@ -482,8 +482,8 @@ public class Spark {
 
         for( DcMotor x: allDriveMotors ) {
 
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             x.setTargetPosition( tickTarget );
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
 
