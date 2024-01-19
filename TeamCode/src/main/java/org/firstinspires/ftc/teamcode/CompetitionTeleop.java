@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="RoughScrimmageTeleop")
-public class RoughScrimmageTeleop extends OpMode {
+@TeleOp(name="CompetitionTeleop")
+public class CompetitionTeleop extends OpMode {
 
     Spark robot;
     
@@ -38,7 +38,7 @@ public class RoughScrimmageTeleop extends OpMode {
 
 
         //First, define some key variables for movement
-        double y = gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
+        double y = -gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
         double x = gamepad1.left_stick_x * STRAFE_FACTOR; // Scaling to fix
         double turn = gamepad1.right_stick_x; // Turn value
        
@@ -72,7 +72,7 @@ public class RoughScrimmageTeleop extends OpMode {
             robot.setArmMotor( gamepad2.right_stick_y + 0.7);
         
         } else if ( gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor( gamepad2.right_stick_y + 0.7);
+            robot.setArmMotor( gamepad2.right_stick_y - 0.7);
         } else {
             robot.setArmMotor( 0 );
         }

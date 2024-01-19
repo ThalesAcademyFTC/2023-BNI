@@ -94,7 +94,7 @@ public class Spark {
     static final double DEPOSIT_ARM_POSITION = 0.25;
     
     /** Costant for resetting the small arm servo position */
-    static final double RESET_ARM_POSITION = 0.8;
+    static final double RESET_ARM_POSITION = 1;
 
     /** Constant for pinching a pixel with the large arm */  
     static final double PINCH_CLAW_POSITION = 1;
@@ -189,7 +189,7 @@ public class Spark {
 
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All motors should move the robot forward if set to power 1
-                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 //Here would go any additional hardware devices for the robot
 
@@ -226,8 +226,9 @@ public class Spark {
                 motorBackRight = hwMap.dcMotor.get( "motorBackRight" );
 
                 //Next, reverse motors that need to spin the other direction
-                // Tip: All motors should move the robot forward if set to power 1
-                //motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                // Tip: All m otors should move the robot forward if set to power 1
+                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
                 //Here would go any additional hardware devices for the robot
 
@@ -300,9 +301,9 @@ public class Spark {
                 double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
                 // Save values for the power of each motor
-                double frontLeftPower = ( y - x - turn ) / denominator;
-                double backLeftPower = ( - y + x - turn ) / denominator;
-                double frontRightPower = ( - y - x - turn ) / denominator;
+                double frontLeftPower = ( y + x + turn ) / denominator;
+                double backLeftPower = ( y - x + turn ) / denominator;
+                double frontRightPower = ( y - x - turn ) / denominator;
                 double backRightPower = ( y + x - turn ) / denominator;
 
                 //Now, assign that motor power to each motor
