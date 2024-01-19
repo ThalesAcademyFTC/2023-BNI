@@ -446,18 +446,14 @@ public class Spark {
         // Converts to integer by rounding. CASTS to int after rounding
         int tickTarget = (int)Math.round( inches * Y_INCH_TICKS );
 
-        prepareEncoders();
+        resetDriveEncoders();
 
-        /* for( DcMotor x: allDriveMotors ) {
+        for ( DcMotor x: allDriveMotors ) {
 
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             x.setTargetPosition( tickTarget );
 
-        } */
-
-        motorFrontRight.setTargetPosition( tickTarget );
-        motorBackLeft.setTargetPosition( tickTarget );
-        motorBackRight.setTargetPosition( tickTarget );
-        motorFrontLeft.setTargetPosition( tickTarget );
+        }
 
         // Move forward. Think of this like a coordinate plane :)
         move( 0, speed, 0 );
@@ -482,10 +478,11 @@ public class Spark {
         // Converts to integer by rounding. CASTS to int after rounding
         int tickTarget = (int)Math.round( inches * X_INCH_TICKS );
 
-        prepareEncoders();
+        resetDriveEncoders();
 
         for( DcMotor x: allDriveMotors ) {
 
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             x.setTargetPosition( tickTarget );
 
         }
@@ -531,26 +528,5 @@ public class Spark {
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
-    }
-
-    public void prepareEncoders(){
-        /* for (DcMotor x : allDriveMotors) {
-            x.setPower(0);
-            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        } */
-
-        motorBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        motorBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        motorFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        motorFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
     }
 }
