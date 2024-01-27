@@ -38,7 +38,8 @@ public class Spark {
      */
     public enum Drivetrain {
         MECHANUM,
-        MISTRO
+        MISTRO,
+        TEST
     }
 
     /**
@@ -68,13 +69,9 @@ public class Spark {
 
     public DcMotor[] allDriveMotors;
 
-    public DcMotor armMotor, spinnyMotor, motorSuspend;
+    public DcMotor armMotor, intakeMotor, motorSuspend;
 
-    public Servo clawServo;
-
-    public Servo smallArmServo;
-
-    public Servo crabServo;
+    public Servo clawServo, revolveServo, hookServo;
 
     private IMU imu;
 
@@ -83,24 +80,6 @@ public class Spark {
     public WebcamName webcamName;
 
     // Put CONSTANTS here
-
-    /** Constant for the claw open position */
-    static final double OPEN_CLAW_POSITION = 1;
-
-    /** Constant for the close claw position */
-    static final double CLOSE_CLAW_POSITION = 0;
-    
-    /** Consant for small arm servo depositing position */
-    static final double DEPOSIT_ARM_POSITION = 0.25;
-    
-    /** Costant for resetting the small arm servo position */
-    static final double RESET_ARM_POSITION = 1;
-
-    /** Constant for pinching a pixel with the large arm */  
-    static final double PINCH_CLAW_POSITION = 1;
-
-    /** Constant for releasing a pixel with the large arm */
-    static final double UNPINCH_CLAW_POSITION = 0;
        
     /**
      * Encoder ticks for an INCH moving FORWARD and BACKWARD
@@ -252,13 +231,47 @@ public class Spark {
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
+                intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
+                revolveServo = hwMap.servo.get( "revolveServo" );
+                hookServo = hwMap.servo.get( "hookServo" );
                 clawServo = hwMap.servo.get( "clawServo" );
                 smallArmServo = hwMap.servo.get( "smallArmServo" );
-                //crabServo = hwMap.servo.get( "crabServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
 
+                break;
 
+                case TEST:
+
+                //First, setup the motors that are used for the drivetrain
+                motorFrontLeft = hwMap.dcMotor.get( "motorFrontLeft" );
+                motorFrontRight = hwMap.dcMotor.get( "motorFrontRight" );
+                motorBackLeft = hwMap.dcMotor.get( "motorBackLeft" );
+                motorBackRight = hwMap.dcMotor.get( "motorBackRight" );
+
+                //Next, reverse motors that need to spin the other direction
+                // Tip: All m otors should move the robot forward if set to power 1
+                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+                //Here would go any additional hardware devices for the robot
+
+                // Map the imu to the hardware device
+                imu = hwMap.get( IMU.class, "imu" );
+
+                //Set parameters for the imu.
+                //Check the direction that the logo is facing.
+                //Check the direction that the USB plugs are facing
+                parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT)
+                );
+
+                imu.initialize( parameters );
+
+                //Camera setup
+                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+                allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
                 break;
 
@@ -305,6 +318,28 @@ public class Spark {
                 double backLeftPower = ( y - x + turn ) / denominator;
                 double frontRightPower = ( y - x - turn ) / denominator;
                 double backRightPower = ( y + x - turn ) / denominator;
+
+                //Now, assign that motor power to each motor
+                motorFrontLeft.setPower( frontLeftPower );
+                motorBackLeft.setPower( backLeftPower );
+                motorFrontRight.setPower( frontRightPower );
+                motorBackRight.setPower( backRightPower );
+
+                break;
+
+
+            case TEST
+
+                // Denominator is the largest motor power (absolute value) or 1
+                // This ensures all the powers maintain the same ratio, but only when
+                // at least one is out of the range [-1, 1]`
+                denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
+
+                // Save values for the power of each motor
+                frontLeftPower = ( y + x + turn ) / denominator;
+                backLeftPower = ( y - x + turn ) / denominator;
+                frontRightPower = ( y - x - turn ) / denominator;
+                backRightPower = ( y + x - turn ) / denominator;
 
                 //Now, assign that motor power to each motor
                 motorFrontLeft.setPower( frontLeftPower );
@@ -369,24 +404,10 @@ public class Spark {
     public void setMotorSuspend( double power ) {
         motorSuspend.setPower( power );
     }
-
-    /**
-     * Opens the clawServo using the CONSTANT OPEN_CLAW_POSITION
-     * Defined near top of Spark
-     */
-    public void openClaw() {
-        clawServo.setPosition( OPEN_CLAW_POSITION );
-    }
-
-    /**
-     * Closes the clawServo using the CONSTANT CLOSE_CLAW_POSITION
-     * Defined near top of Spark
-     */
-
-    public void closeClaw() {
-        clawServo.setPosition( CLOSE_CLAW_POSITION );
-    }
     
+    public void setIntakeMotor (double power) {
+        intakeMotor.setPower( power );
+    }
 
     /**
      * Set the claw servo to the given position
@@ -395,22 +416,18 @@ public class Spark {
     public void setClawServo( double position ) {
         clawServo.setPosition( position );
     }
-    
-    public void smallArmDeposit() {
-        smallArmServo.setPosition( DEPOSIT_ARM_POSITION );
-    }
-    
-    public void smallArmReset() {
-        smallArmServo.setPosition( RESET_ARM_POSITION );
+
+    public void setRevolveServo( double position) {
+        revolveServo.setPosition( position );
     }
 
-    public void crabServoPinch() {
-        crabServo.setPosition( PINCH_CLAW_POSITION );
+    public void setHookServo( double position) {
+        hookServo.setposition( position );
     }
-    
-    public void crabServoUnPinch() {
-        crabServo.setPosition( UNPINCH_CLAW_POSITION );
-            
+
+    public void pixelRelease() {
+        int CURRENT_POSITION = revolveServo.getCurrentPosition();
+        revolveServo.setposition( CURRENT_POSITION + 1);
     }
 
     public void turnRightDegrees( double degrees, double speed ) {
