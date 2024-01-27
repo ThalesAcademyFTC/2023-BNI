@@ -235,7 +235,6 @@ public class Spark {
                 revolveServo = hwMap.servo.get( "revolveServo" );
                 hookServo = hwMap.servo.get( "hookServo" );
                 clawServo = hwMap.servo.get( "clawServo" );
-                smallArmServo = hwMap.servo.get( "smallArmServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
 
@@ -328,7 +327,7 @@ public class Spark {
                 break;
 
 
-            case TEST
+            case TEST:
 
                 // Denominator is the largest motor power (absolute value) or 1
                 // This ensures all the powers maintain the same ratio, but only when
@@ -422,12 +421,12 @@ public class Spark {
     }
 
     public void setHookServo( double position) {
-        hookServo.setposition( position );
+        hookServo.setPosition( position );
     }
 
     public void pixelRelease() {
-        int CURRENT_POSITION = revolveServo.getCurrentPosition();
-        revolveServo.setposition( CURRENT_POSITION + 1);
+        double CURRENT_POSITION = revolveServo.getPosition();
+        revolveServo.setPosition( CURRENT_POSITION + 1);
     }
 
     public void turnRightDegrees( double degrees, double speed ) {
