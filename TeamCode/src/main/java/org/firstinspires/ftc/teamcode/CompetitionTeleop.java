@@ -46,26 +46,20 @@ public class CompetitionTeleop extends OpMode {
         
         //Movement
         robot.move( x, y, turn);
-        
-        //Claw open/close
-        if (gamepad2.right_trigger > 0.25) {
-            robot.openClaw();
-        
-        } else if (gamepad2.left_trigger > 0.25) {
-            robot.closeClaw();
-        
+
+        //Run intake
+        if ( gamepad2.right_trigger > 0.1) {
+            robot.setIntakeMotor(gamepad2.right_trigger);
+        } else if (gamepad2.left_trigger > 1) {
+            robot.setIntakeMotor(gamepad2.left_trigger);
+        } else {
+            robot.setIntakeMotor(0);
         }
 
-
-        //small arm
-        if ( gamepad2.right_bumper ) {
-            robot.smallArmDeposit();
-
-        } else if ( gamepad2.left_bumper ) {
-            robot.smallArmReset();
-        
+        //Revolving door thing
+        if (gamepad2.a) {
+            robot.pixelRelease();
         }
-
 
         //Moves large arm up
         if ( gamepad2.right_stick_y > 0.3 ){
@@ -75,13 +69,6 @@ public class CompetitionTeleop extends OpMode {
             robot.setArmMotor( gamepad2.right_stick_y - 0.7);
         } else {
             robot.setArmMotor( 0 );
-        }
-
-        if (gamepad2.a) {
-            //robot.crabServoPinch();   
-            
-        } else if (gamepad2.y) {
-           // robot.crabServoUnPinch();
         }
 
 

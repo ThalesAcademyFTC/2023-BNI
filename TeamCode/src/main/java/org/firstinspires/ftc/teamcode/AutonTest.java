@@ -17,7 +17,7 @@ public class AutonTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+        robot = new Spark(this, Spark.Drivetrain.TEST);
 
         // TODO Change the team to whichever team this auton is for
         tagger = new Tagger( this, robot.webcamName, team);
