@@ -91,12 +91,7 @@ public class NewFeatureDemo extends OpMode {
             clawToggle = !clawToggle;
         }
 
-        //If claw toggle is true, then open the claw. If it is false, close the claw
-        if ( clawToggle ) {
-            robot.openClaw();
-        } else {
-            robot.closeClaw();
-        }
+
 
         //Basically, if the button was pressed in this iteration but not the previous one.
         // Only runs once, even if button is held down.

@@ -60,12 +60,6 @@ public class ButtonToggle extends OpMode {
             clawToggle = !clawToggle;
         }
 
-        //If claw toggle is true, then open the claw. If it is false, close the claw
-        if ( clawToggle ) {
-            robot.openClaw();
-        } else {
-            robot.closeClaw();
-        }
 
 
     }

@@ -14,7 +14,7 @@ public class RoughLongRightSideAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+        robot = new Spark(this, Spark.Drivetrain.TEST);
         runtime.reset();
 
         waitForStart();
