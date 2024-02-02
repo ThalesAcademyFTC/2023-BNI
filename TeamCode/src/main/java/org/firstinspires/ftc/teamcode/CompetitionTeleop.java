@@ -15,7 +15,7 @@ public class CompetitionTeleop extends OpMode {
     public void init() {
 
         // INITIALIZE the library object
-        robot = new Spark( this, Spark.Drivetrain.MECHANUM );
+        robot = new Spark(this, Spark.Drivetrain.MECHANUM );
 
     }
 
@@ -45,12 +45,16 @@ public class CompetitionTeleop extends OpMode {
         //Now, set motor powers using x, y, and turn variables
         
         //Movement
-        robot.move( x, y, turn);
+        robot.move(x, y, turn);
+
+
+
+            //GAMEPAD 2
 
         //Run intake
-        if ( gamepad2.right_trigger > 0.1) {
+        if (gamepad2.right_trigger > 0.1) {
             robot.setIntakeMotor(gamepad2.right_trigger);
-        } else if (gamepad2.left_trigger > 1) {
+        } else if (gamepad2.left_trigger > 0.1) {
             robot.setIntakeMotor(gamepad2.left_trigger);
         } else {
             robot.setIntakeMotor(0);
@@ -62,32 +66,32 @@ public class CompetitionTeleop extends OpMode {
         }
 
         //Moves large arm up
-        if ( gamepad2.right_stick_y > 0.3 ){
-            robot.setArmMotor( gamepad2.right_stick_y + 0.7);
+        if (gamepad2.right_stick_y > 0.3 ){
+            robot.setArmMotor(gamepad2.right_stick_y + 0.7);
         
-        } else if ( gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor( gamepad2.right_stick_y - 0.7);
+        } else if (gamepad2.right_stick_y < -0.3 ){
+            robot.setArmMotor(gamepad2.right_stick_y - 0.7);
+
         } else {
-            robot.setArmMotor( 0 );
+            robot.setArmMotor(0);
         }
 
-
-        //robot suspend
+        //robot suspends on bar
         if (gamepad2.x) {
             robot.setMotorSuspend(1);
-            
-        //robot desuspends
-        } else if (gamepad2.b) {
+
+        } else if (gamepad2.b) { //Robot releases from bar
             robot.setMotorSuspend(-1);
         
         } else {
             robot.setMotorSuspend(0);
-            
+
         }
 
-//keep this at end
+
+
         if (gamepad1.atRest()) robot.rest();
     
-    }  
+    }
 
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //For Billy Dignam. Bless his soul. :)

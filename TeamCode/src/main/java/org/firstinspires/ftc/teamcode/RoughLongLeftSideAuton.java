@@ -24,17 +24,19 @@ public class RoughLongLeftSideAuton extends LinearOpMode {
         double speed = 0.5;
         int rest = 100;
 
-        //robot moves forward, scans for the spike mark, and places purple pixel
+        // scans for the spike mark, and places purple pixel
         //more code needed where indicated
 
-        robot.moveForwardInches(12 , speed);
-        sleep(100);
+
 
         /*robot scans for spike mark
         robot rests
 
         robot places purple pixel
-        robot rests*/
+        robot rests*
+
+         */
+
 
         //robot moves back and approaches backboard
                
