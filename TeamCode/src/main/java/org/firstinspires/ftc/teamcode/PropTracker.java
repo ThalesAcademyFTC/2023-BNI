@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="PixelTracker")
+@Autonomous(name="PropTracker")
 //@Disabled
-public class PixelTracker extends LinearOpMode {
+public class PropTracker extends LinearOpMode {
 
     private Spark robot;
 
@@ -33,7 +33,7 @@ public class PixelTracker extends LinearOpMode {
             //This updates the array of current detections inside tagger.
             finder.scanWithTelemetry();
 
-            telemetry.addData("Pixel Spike Location: ", finder.getPixelLocation());
+          //  telemetry.addData("Team Prop Spike Location: ", finder.getPixelLocation());
 
             telemetry.update();
 
