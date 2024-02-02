@@ -23,57 +23,51 @@ public class RoughLongRightSideAuton extends LinearOpMode {
 
         double speed = 0.5;
         int rest = 100;
+        //more code needed where indicate
+        //robot scans for the spike mark, and places purple pixel
+        
 
-        //robot moves forward, scans for the spike mark, and places purple pixel
-        //more code needed where indicated
+        robot.moveForwardInches(37, speed);
+        sleep(rest);
 
-        robot.moveForwardInches(12, speed);
-        //robot.sleep(rest);
-
-        /*robot scans for spike mark
-        robot rests
-
-        robot places purple pixel
-        robot rests*/
-
-
-        //robot moves back and approaches backboard
-
-        robot.moveBackwardInches(9, speed);
-        //robot.sleep(rest);
+        robot.moveBackwardInches(34, speed);
+        sleep(rest);
 
         robot.turnRightDegrees(90, 0.75);
-        //robot.sleep(rest);
+        sleep(rest);
 
         robot.moveForwardInches(50, speed);
-        //robot.sleep(rest);
+        sleep(rest);
 
-        robot.moveRightInches(24, speed);
-        //robot.sleep(rest);
+        robot.moveLeftInches(24, speed);
+        sleep(rest);
 
 
         //robot scans for the right april tag, moves forward to the right position, and places the yellow pixel
         //more code needed where indicated
 
+        robot.moveForwardInches(18, speed);
+        sleep(rest);
+
         //robot scans for the right april tag
-        //robot.sleep(rest);
+        sleep(rest);
 
-        robot.moveForwardInches(6, speed);
-        //robot.sleep(rest);
+        robot.moveForwardInches(20, speed);
+        sleep(rest);
 
-        //robot turns to the right position
-        //robot.sleep(rest);
+        //robot turns to correct position
+        sleep(rest);
 
         //robot places yellow pixel
-        //robot.sleep(rest);
+        sleep(rest);
 
 
         //robot then moves into the parking area
 
         robot.moveLeftInches(24, speed);
-        //robot.sleep(rest);
+        sleep(rest);
 
-        robot.moveForwardInches(18, speed);
+        robot.moveForwardInches(12, speed);
 
         while (opModeIsActive() && runtime.milliseconds() > 30000){
             //If you want to use a loop, here's an example
