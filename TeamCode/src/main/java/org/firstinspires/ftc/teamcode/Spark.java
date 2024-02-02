@@ -236,7 +236,7 @@ public class Spark {
                 hookServo = hwMap.servo.get( "hookServo" );
                 clawServo = hwMap.servo.get( "clawServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
-
+                motorSuspend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 break;
 
@@ -425,8 +425,8 @@ public class Spark {
     }
 
     public void pixelRelease() {
-        double CURRENT_POSITION = revolveServo.getPosition();
-        revolveServo.setPosition( CURRENT_POSITION + 1);
+        double current_position = revolveServo.getPosition();
+        revolveServo.setPosition( current_position + 1);
     }
 
     public void turnRightDegrees( double degrees, double speed ) {
