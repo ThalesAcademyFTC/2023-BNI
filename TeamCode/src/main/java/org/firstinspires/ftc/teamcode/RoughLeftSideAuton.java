@@ -44,14 +44,14 @@ public class RoughLeftSideAuton extends LinearOpMode {
         
         //Code for auton
         robot.moveForwardInches(12 , speed);   
-        //robot.sleep(rest);
+        sleep(100);
         
          //code for scanning spike mark goes here
-        //robot.sleep(rest);
+        sleep(100);
                 //code for placing purple pixel goes here
         //robot.sleep(rest);
         robot.moveBackwardInches(9, speed);    
-        //robot.sleep(rest);
+        sleep(100);
         
         robot.turnLeftDegrees(90, speed * 3/2);         
         //robot.sleep(rest);
