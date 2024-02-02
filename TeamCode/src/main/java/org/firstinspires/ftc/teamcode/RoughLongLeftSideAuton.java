@@ -63,7 +63,7 @@ public class RoughLongLeftSideAuton extends LinearOpMode {
         sleep(100);
 
         //robot turns to the right position
-        //robot.sleep(rest);
+        sleep(100);
         
         //place the  yellow pixel
         //robot.sleep(rest);

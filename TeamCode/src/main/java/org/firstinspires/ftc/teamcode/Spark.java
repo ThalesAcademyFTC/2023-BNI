@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -71,8 +72,9 @@ public class Spark {
 
     public DcMotor armMotor, intakeMotor, motorSuspend;
 
-    public Servo clawServo, revolveServo, hookServo;
+    public Servo clawServo, hookServo;
 
+    public CRServo revolveServo, intakeServo;
     private IMU imu;
 
     private IMU.Parameters parameters;
@@ -231,10 +233,10 @@ public class Spark {
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
-                intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
-                revolveServo = hwMap.servo.get( "revolveServo" );
-                hookServo = hwMap.servo.get( "hookServo" );
-                clawServo = hwMap.servo.get( "clawServo" );
+                revolveServo = hwMap.crservo.get( "revolveServo" );
+                intakeServo = hwMap.crservo.get( "intakeServo" );
+                hookServo = hwMap.servo.get("hookServo");
+               // clawServo = hwMap.servo.get( "clawServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
                 motorSuspend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -416,17 +418,20 @@ public class Spark {
         clawServo.setPosition( position );
     }
 
-    public void setRevolveServo( double position) {
-        revolveServo.setPosition( position );
+    public void setRevolvePower( double power) {
+        revolveServo.setPower( power );
+    }
+
+    public void runIntake( double power ) {
+        intakeServo.setPower(power);
     }
 
     public void setHookServo( double position) {
         hookServo.setPosition( position );
     }
 
-    public void pixelRelease() {
-        double current_position = revolveServo.getPosition();
-        revolveServo.setPosition( current_position + 1);
+    public void pixelRelease( double power) {
+       revolveServo.setPower(power);
     }
 
     public void turnRightDegrees( double degrees, double speed ) {
