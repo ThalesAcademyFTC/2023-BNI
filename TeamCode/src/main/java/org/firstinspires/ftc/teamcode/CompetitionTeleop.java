@@ -56,6 +56,8 @@ public class CompetitionTeleop extends OpMode {
             robot.runIntake(1);
         } else if (gamepad2.left_trigger > 0.1) {
             robot.runIntake(-1);
+        } else {
+            robot.runIntake(0);
         }
 
         //Hold button thing
@@ -65,12 +67,12 @@ public class CompetitionTeleop extends OpMode {
             robot.pixelRelease(0);
         }
 
-        //Moves large arm up
+        //Moves large arm down
         if (gamepad2.right_stick_y > 0.3 ){
-            robot.setArmMotor(gamepad2.right_stick_y + 0.7);
+            robot.setArmMotor(gamepad2.right_stick_y / 2);
         
         } else if (gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor(gamepad2.right_stick_y - 0.7);
+            robot.setArmMotor(gamepad2.right_stick_y);
 
         } else {
             robot.setArmMotor(0);
