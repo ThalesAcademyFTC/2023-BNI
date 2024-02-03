@@ -1,20 +1,27 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RoughLongRightSideAuton")
-public class RoughLongRightSideAuton extends LinearOpMode {
+@Autonomous(name="RedLongAuton")
+public class RedLongAuton extends LinearOpMode {
 
     private Spark robot;
 
     private ElapsedTime runtime = new ElapsedTime();
 
+    private Finder finder;
+
+    private Spark.Team team = Spark.Team.RED;
+
+    private Finder.SPIKE_MARK pixelLocation;
+
     @Override
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.TEST);
+
+        finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
 
         waitForStart();
@@ -25,7 +32,43 @@ public class RoughLongRightSideAuton extends LinearOpMode {
         int rest = 100;
         //more code needed where indicate
         //robot scans for the spike mark, and places purple pixel
-        
+        pixelLocation = finder.getPixelLocation();
+
+        while ( opModeIsActive() && pixelLocation == null ) {
+
+            pixelLocation = finder.getPixelLocation();
+            //This updates the array of current detections inside tagger.
+            finder.scanWithTelemetry();
+
+            telemetry.addData("Pixel Spike Location: ", pixelLocation);
+
+            telemetry.update();
+
+            // Share the CPU.
+            sleep(20);
+
+        }
+
+        //Now you know the pixel... so you can make a switch statement to process it
+        switch( pixelLocation ) {
+            case LEFT:
+                //Do these things if the pixel is on the left mark...
+                //Note: You may find it helpful to create a function called moveToPixelBoard()
+                //And place your robot.moveLeftInches, etc. inside of that function.
+                //That way you do not have to rewrite the code for each switch case!
+                break;
+            case CENTER:
+                //Do these things if the pixel is on the center mark...
+                break;
+            case RIGHT:
+                //Do these things if the pixel is on the right mark...
+                break;
+
+        }
+
+
+        // Close out tagger.
+        finder.close();
 
         robot.moveForwardInches(37, speed);
         sleep(rest);

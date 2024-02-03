@@ -33,7 +33,7 @@ public class PropTracker extends LinearOpMode {
             //This updates the array of current detections inside tagger.
             finder.scanWithTelemetry();
 
-          //  telemetry.addData("Team Prop Spike Location: ", finder.getPixelLocation());
+            telemetry.addData("Team Prop Spike Location: ", finder.getPropLocation());
 
             telemetry.update();
 

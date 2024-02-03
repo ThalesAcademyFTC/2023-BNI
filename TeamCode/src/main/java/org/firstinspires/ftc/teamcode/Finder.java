@@ -184,6 +184,35 @@ public class Finder {
 
     }
 
+    public SPIKE_MARK getPropLocation() {
+        Recognition prop;
+        if (team == Spark.Team.BLUE ) {
+            prop = getRecognitionByName("BlueTeamProp");
+        } else {
+            prop = getRecognitionByName("RedTeamProp");
+        }
+        //if pixel is not found, return null
+        if ( prop == null ) return null;
+
+        //Now that we know a pixel was identified, let's calculate its x value
+        double x = (prop.getLeft() + prop.getRight()) / 2 ;
+
+        telem.addData("Prop Location:", x);
+
+        if ( x < LEFT_DIVIDER ) {
+
+            return SPIKE_MARK.LEFT;
+
+        } else if ( x > RIGHT_DIVIDER ) {
+
+            return SPIKE_MARK.RIGHT;
+
+        }
+
+        return SPIKE_MARK.CENTER;
+
+    }
+
     /**
      * Returns the first recognition with the name provided
      * @param name the name to look for inside of recognitions

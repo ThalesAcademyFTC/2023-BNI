@@ -1,20 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RoughRightSideAuton")
-public class RoughRightSideAuton extends LinearOpMode {
+@Autonomous(name="RedShortAuton")
+public class RedShortAuton extends LinearOpMode {
 
     private Spark robot;
 
+    private Finder finder;
+
     private ElapsedTime runtime = new ElapsedTime();
+
+    private Spark.Team team = Spark.Team.RED;
 
     @Override
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+
+        finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
 
         waitForStart();

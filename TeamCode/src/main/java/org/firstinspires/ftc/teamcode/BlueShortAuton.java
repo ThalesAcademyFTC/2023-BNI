@@ -1,25 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
-import java.util.List;
-
-@Autonomous(name="RoughLeftSideAuton")
-public class RoughLeftSideAuton extends LinearOpMode {
+@Autonomous(name="BlueShortAuton")
+public class BlueShortAuton extends LinearOpMode {
 
     private Spark robot;
 
     private ElapsedTime runtime = new ElapsedTime();
 
     private Tagger tagger;
+
+    private Finder finder;
 
     private Spark.Team team = Spark.Team.BLUE;
 
@@ -32,6 +26,9 @@ public class RoughLeftSideAuton extends LinearOpMode {
 
         // TODO Change the team to whichever team this auton is for
         tagger = new Tagger( this, robot.webcamName, team);
+
+        finder = new Finder(this, robot.webcamName, team);
+
         runtime.reset();
 
         tagger.init();

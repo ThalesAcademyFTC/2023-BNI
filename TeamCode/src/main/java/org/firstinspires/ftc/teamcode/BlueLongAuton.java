@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RoughLongLeftSideAuton")
-public class RoughLongLeftSideAuton extends LinearOpMode {
+@Autonomous(name="BlueLongAuton")
+public class BlueLongAuton extends LinearOpMode {
 
     private Spark robot;
 
