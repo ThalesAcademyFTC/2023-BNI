@@ -83,9 +83,9 @@ public class Spark {
 
     // Put CONSTANTS here
 
-    static final double HOOK_DROP_POSITION = 0.2;
+    static final double HOOK_DROP_POSITION = 0.45;
 
-    static final double HOOK_UP_POSITION = 0.6;
+    static final double HOOK_UP_POSITION = 0.42;
        
     /**
      * Encoder ticks for an INCH moving FORWARD and BACKWARD

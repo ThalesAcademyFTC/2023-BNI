@@ -90,15 +90,6 @@ public class CompetitionTeleop extends OpMode {
 
         }
 
-        if (gamepad1.x) {
-            robot.dropHook();
-        }
-        else{
-            robot.liftHook();
-        }
-
-
-
         if (gamepad1.atRest()) robot.rest();
     
     }
