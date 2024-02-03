@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="RedLongAuton")
+@Autonomous(name="RedPlacePurple")
 public class RedPlacePurple extends LinearOpMode {
 
     private Spark robot;
@@ -23,6 +23,8 @@ public class RedPlacePurple extends LinearOpMode {
 
         finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
+
+        robot.liftHook();
 
         waitForStart();
 
@@ -54,19 +56,18 @@ public class RedPlacePurple extends LinearOpMode {
         switch( pixelLocation ) {
             case LEFT:
                 robot.turnRightDegrees(90,speed);
-                //drop thou art pixel
+
                 break;
             case CENTER:
                 robot.turnLeftDegrees(180,speed);
-                //drop thou art pixel
+
                 break;
             case RIGHT:
                 robot.turnLeftDegrees(90,speed);
-                //drop thou art pixel
                 break;
 
         }
-
+       robot.dropHook();
 
         // Close out tagger.
         finder.close();
@@ -76,4 +77,3 @@ public class RedPlacePurple extends LinearOpMode {
         }
     }
 }
-//name robot billy dignam            

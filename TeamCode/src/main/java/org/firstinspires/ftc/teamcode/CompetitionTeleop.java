@@ -53,7 +53,7 @@ public class CompetitionTeleop extends OpMode {
 
         //Run intake
         if (gamepad2.right_trigger > 0.1) {
-            robot.runIntake(1);
+            robot.runIntake(1   );
         } else if (gamepad2.left_trigger > 0.1) {
             robot.runIntake(-1);
         } else {
@@ -88,6 +88,13 @@ public class CompetitionTeleop extends OpMode {
         } else {
             robot.setMotorSuspend(0);
 
+        }
+
+        if (gamepad1.x) {
+            robot.dropHook();
+        }
+        else{
+            robot.liftHook();
         }
 
 

@@ -82,6 +82,10 @@ public class Spark {
     public WebcamName webcamName;
 
     // Put CONSTANTS here
+
+    static final double HOOK_DROP_POSITION = 0.2;
+
+    static final double HOOK_UP_POSITION = 0.6;
        
     /**
      * Encoder ticks for an INCH moving FORWARD and BACKWARD
@@ -418,6 +422,7 @@ public class Spark {
         clawServo.setPosition( position );
     }
 
+
     public void setRevolvePower( double power) {
         revolveServo.setPower( power );
     }
@@ -428,6 +433,14 @@ public class Spark {
 
     public void setHookServo( double position) {
         hookServo.setPosition( position );
+    }
+
+    public void dropHook(){
+        setHookServo(HOOK_DROP_POSITION);
+    }
+
+    public void liftHook(){
+        setHookServo(HOOK_UP_POSITION);
     }
 
     public void pixelRelease( double power) {
