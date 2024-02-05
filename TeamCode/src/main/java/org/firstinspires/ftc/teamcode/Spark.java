@@ -72,7 +72,7 @@ public class Spark {
     public DcMotor armMotor, motorSuspend;
             //intakeMotor,
 
-    public Servo clawServo, revolveServo, hookServo;
+    public Servo angleServo, revolveServo, hookServo;
 
     private IMU imu;
 
@@ -230,7 +230,8 @@ public class Spark {
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
-                motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
+                //motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
+                angleServo = hwMap.servo.get( "angleServo" );
                 //intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
                 //revolveServo = hwMap.servo.get( "revolveServo" );
                 //hookServo = hwMap.servo.get( "hookServo" );
@@ -399,6 +400,14 @@ public class Spark {
         armMotor.setPower( power );
     }
 
+    public void liftArm() {
+        armMotor.setPower(1);
+    }
+
+    public void lowerArm() {
+        armMotor.setPower(-1);
+    }
+
     public void setMotorSuspend( double power ) {
         motorSuspend.setPower( power );
     }
@@ -411,8 +420,8 @@ public class Spark {
      * Set the claw servo to the given position
      * @param position the position to set the claw servo to
      */
-    public void setClawServo( double position ) {
-        clawServo.setPosition( position );
+    public void setangleServo( double position ) {
+        angleServo.setPosition( position );
     }
 
     public void setRevolveServo( double position) {
