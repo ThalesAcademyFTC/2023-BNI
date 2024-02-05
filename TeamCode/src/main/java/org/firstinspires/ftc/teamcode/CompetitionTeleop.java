@@ -48,18 +48,18 @@ public class CompetitionTeleop extends OpMode {
         robot.move( x, y, turn);
 
         //Run intake
-        if ( gamepad2.right_trigger > 0.1) {
+        /*if ( gamepad2.right_trigger > 0.1) {
             robot.setIntakeMotor(gamepad2.right_trigger);
         } else if (gamepad2.left_trigger > 1) {
             robot.setIntakeMotor(gamepad2.left_trigger);
         } else {
             robot.setIntakeMotor(0);
-        }
+        }*/
 
         //Revolving door thing
-        if (gamepad2.a) {
+        /*if (gamepad2.a) {
             robot.pixelRelease();
-        }
+        }*/
 
         //Moves large arm up
         if ( gamepad2.right_stick_y > 0.3 ){

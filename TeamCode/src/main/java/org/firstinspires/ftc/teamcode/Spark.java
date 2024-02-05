@@ -69,7 +69,8 @@ public class Spark {
 
     public DcMotor[] allDriveMotors;
 
-    public DcMotor armMotor, intakeMotor, motorSuspend;
+    public DcMotor armMotor, motorSuspend;
+            //intakeMotor,
 
     public Servo clawServo, revolveServo, hookServo;
 
@@ -206,7 +207,6 @@ public class Spark {
 
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All m otors should move the robot forward if set to power 1
-                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 //Here would go any additional hardware devices for the robot
@@ -231,10 +231,9 @@ public class Spark {
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
-                intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
-                revolveServo = hwMap.servo.get( "revolveServo" );
-                hookServo = hwMap.servo.get( "hookServo" );
-                clawServo = hwMap.servo.get( "clawServo" );
+                //intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
+                //revolveServo = hwMap.servo.get( "revolveServo" );
+                //hookServo = hwMap.servo.get( "hookServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
 
@@ -405,7 +404,7 @@ public class Spark {
     }
     
     public void setIntakeMotor (double power) {
-        intakeMotor.setPower( power );
+        //intakeMotor.setPower( power );
     }
 
     /**

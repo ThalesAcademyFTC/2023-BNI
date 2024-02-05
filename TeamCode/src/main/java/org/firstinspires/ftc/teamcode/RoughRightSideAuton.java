@@ -14,7 +14,7 @@ public class RoughRightSideAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+        robot = new Spark(this, Spark.Drivetrain.TEST);
         runtime.reset();
 
         waitForStart();
@@ -38,16 +38,16 @@ public class RoughRightSideAuton extends LinearOpMode {
 
 
         //robot moves back and approaches backboard:
-       //robot.moveBackwardInches(9, speed);
+        robot.moveBackwardInches(9, speed);
         //robot.sleep(rest);
 
-        //robot.turnRightDegrees(90, 0.75);
+        robot.turnRightDegrees(90, 0.75);
         //robot.sleep(rest);
 
-        //robot.moveForwardInches(24, speed);
+        robot.moveForwardInches(24, speed);
         //robot.sleep(rest);
 
-        //robot.moveRightInches(24, speed);
+        robot.moveRightInches(24, speed);
         //robot.sleep(rest);
 
 
@@ -58,7 +58,7 @@ public class RoughRightSideAuton extends LinearOpMode {
         
         //robot.sleep(rest);
 
-        //robot.moveForwardInches(6, speed);
+        robot.moveForwardInches(6, speed);
         //robot.sleep(rest);
 
         //code for positioning to place
@@ -71,10 +71,10 @@ public class RoughRightSideAuton extends LinearOpMode {
 
 
         //robot then moves into the parking area:
-        //robot.moveLeftInches(24, speed);
+        robot.moveLeftInches(24, speed);
         //robot.sleep(rest);
 
-        //robot.moveForwardInches(18, speed);
+        robot.moveForwardInches(18, speed);
 
         //end
 
