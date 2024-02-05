@@ -41,54 +41,52 @@ public class CompetitionTeleop extends OpMode {
         double y = -gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
         double x = gamepad1.left_stick_x * STRAFE_FACTOR; // Scaling to fix
         double turn = gamepad1.right_stick_x; // Turn value
-       
+        boolean clawTilted = false;
+
         //Now, set motor powers using x, y, and turn variables
         
         //Movement
         robot.move(x, y, turn);
 
+        //GAMEPAD 2
 
-
-            //GAMEPAD 2
-
-        //Run intake
+        //Claws
         if (gamepad2.right_trigger > 0.1) {
-            robot.runIntake(1   );
-        } else if (gamepad2.left_trigger > 0.1) {
-            robot.runIntake(-1);
-        } else {
-            robot.runIntake(0);
-        }
+            robot.openClawR();
+        } else if (gamepad2.right_bumper) {
+            robot.closeClawR();
+        } 
 
-        //Hold button thing
+        if (gamepad2.left_trigger > 0.1) {
+            robot.openClawL();
+        } else if (gamepad2.left_bumper) {
+            robot.closeClawL();
+        } 
+
+        //Claw tilt 
         if (gamepad2.a) {
-            robot.pixelRelease(1);
-        } else {
-            robot.pixelRelease(0);
-        }
+            
+            if (clawTilted == false) {
+                clawTilted = true;
+                robot.tiltClaw();
+            } else if (clawTilted == true) {
+                clawTilted = false;
+                robot.resetClaw();
+            }
+            
+        } 
 
         //Moves large arm down
         if (gamepad2.right_stick_y > 0.3 ){
-            robot.setArmMotor(gamepad2.right_stick_y / 2);
+            robot.liftArm();
         
         } else if (gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor(gamepad2.right_stick_y);
+            robot.lowerArm();
 
         } else {
             robot.setArmMotor(0);
         }
 
-        //robot suspends on bar
-        if (gamepad2.x) {
-            robot.setMotorSuspend(1);
-
-        } else if (gamepad2.b) { //Robot releases from bar
-            robot.setMotorSuspend(-1);
-        
-        } else {
-            robot.setMotorSuspend(0);
-
-        }
 
         if (gamepad1.atRest()) robot.rest();
     

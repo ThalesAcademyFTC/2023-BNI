@@ -402,17 +402,17 @@ public class Spark {
      * Sets the arm motor to the given power
      * @param power the power to send to the arm motor
      */
-    public void setArmMotor( double power ) {
-        armMotor.setPower( power );
+    public void liftArm() {
+        armMotor.setPower(0.75);
     }
 
-    public void setMotorSuspend( double power ) {
+    /*public void setMotorSuspend( double power ) {
         motorSuspend.setPower( power );
     }
     
     public void setIntakeMotor (double power) {
         intakeMotor.setPower( power );
-    }
+    }*/
 
     /**
      * Set the claw servo to the given position
