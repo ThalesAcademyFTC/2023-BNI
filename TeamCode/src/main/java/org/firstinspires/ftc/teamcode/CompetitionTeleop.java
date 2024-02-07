@@ -51,22 +51,6 @@ public class CompetitionTeleop extends OpMode {
 
             //GAMEPAD 2
 
-        //Run intake
-        if (gamepad2.right_trigger > 0.1) {
-            robot.runIntake(1   );
-        } else if (gamepad2.left_trigger > 0.1) {
-            robot.runIntake(-1);
-        } else {
-            robot.runIntake(0);
-        }
-
-        //Hold button thing
-        if (gamepad2.a) {
-            robot.pixelRelease(1);
-        } else {
-            robot.pixelRelease(0);
-        }
-
         //Moves large arm down
         if (gamepad2.right_stick_y > 0.3 ){
             robot.setArmMotor(gamepad2.right_stick_y / 2);
@@ -78,8 +62,33 @@ public class CompetitionTeleop extends OpMode {
             robot.setArmMotor(0);
         }
 
+        if (gamepad2.left_trigger){
+            robot.setClawServoLeft(1);
+
+        } else {
+            robot.setClawServoLeft(0);
+
+        }
+
+        if (gamepad2.right_trigger){
+            robot.setClawServoRight(1);
+
+        } else {
+            robot.setClawServoRight(0);
+
+        }
+
+        if (gamepad2.left_stick_y < -0.3 ){
+            robot.dropHook(0.2);
+
+        } else if (gamepad2.left_stick_y > 0.3 ){
+            robot.pickUpHook(0);
+
+        }
+
+
         //robot suspends on bar
-        if (gamepad2.x) {
+        /*if (gamepad2.x) {
             robot.setMotorSuspend(1);
 
         } else if (gamepad2.b) { //Robot releases from bar
@@ -88,16 +97,8 @@ public class CompetitionTeleop extends OpMode {
         } else {
             robot.setMotorSuspend(0);
 
-        }
-        //robot purple pixel drop
-        if (gamepad2.dpad_up) {
-            robot.liftHook();
-
-        } else if (gamepad2.dpad_down); {
-            robot.dropHook();
-        }
-
-
+        }*/
+        
 
 
 

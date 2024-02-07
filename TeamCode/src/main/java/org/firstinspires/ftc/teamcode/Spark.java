@@ -70,11 +70,11 @@ public class Spark {
 
     public DcMotor[] allDriveMotors;
 
-    public DcMotor armMotor, intakeMotor, motorSuspend;
+    public DcMotor armMotor
 
-    public Servo clawServo, hookServo;
+    public Servo clawServoLeft, clawServoRight hookServo;
 
-    public CRServo revolveServo, intakeServo;
+    //public CRServo revolveServo, intakeServo;
     private IMU imu;
 
     private IMU.Parameters parameters;
@@ -239,8 +239,8 @@ public class Spark {
                 armMotor = hwMap.dcMotor.get( "armMotor" );
                 intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
-                revolveServo = hwMap.crservo.get( "revolveServo" );
-                intakeServo = hwMap.crservo.get( "intakeServo" );
+                clawServoLeft = hwMap.dcMotor.get( "clawServoLeft" );
+                clawServoRight = hwMap.dcMotor.get( "clawServoRight" );
                 hookServo = hwMap.servo.get("hookServo");
                // clawServo = hwMap.servo.get( "clawServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
@@ -408,45 +408,24 @@ public class Spark {
         armMotor.setPower( power );
     }
 
-    public void setMotorSuspend( double power ) {
-        motorSuspend.setPower( power );
-    }
-    
-    public void setIntakeMotor (double power) {
-        intakeMotor.setPower( power );
-    }
-
     /**
      * Set the claw servo to the given position
      * @param position the position to set the claw servo to
      */
-    public void setClawServo( double position ) {
-        clawServo.setPosition( position );
+    public void setClawServoLeft( double position ) {
+        clawServoLeft.setPosition( position );
     }
 
-
-    public void setRevolvePower( double power) {
-        revolveServo.setPower( power );
-    }
-
-    public void runIntake( double power ) {
-        intakeMotor.setPower( power );
-    }
-
-    public void setHookServo( double position ) {
-        hookServo.setPosition( position );
+    public void setClawServoRight( double power) {
+        clawServoRight.setPosition( position );
     }
 
     public void dropHook(){
         setHookServo(HOOK_DROP_POSITION);
     }
 
-    public void liftHook(){
+    public void pickUpHook(){
         setHookServo(HOOK_UP_POSITION);
-    }
-
-    public void pixelRelease( double power) {
-       revolveServo.setPower(power);
     }
 
     public void turnRightDegrees( double degrees, double speed ) {
