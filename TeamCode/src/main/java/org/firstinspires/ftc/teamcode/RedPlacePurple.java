@@ -67,7 +67,7 @@ public class RedPlacePurple extends LinearOpMode {
                 break;
 
         }
-       robot.dropHook();
+       //robot.dropHook();
 
         // Close out tagger.
         finder.close();

@@ -72,7 +72,7 @@ public class CompetitionTeleop extends OpMode {
             robot.setArmMotor(gamepad2.right_stick_y / 2);
         
         } else if (gamepad2.right_stick_y < -0.3 ){
-            robot.setArmMotor(gamepad2.right_stick_y);
+            robot.setArmMotor(gamepad2.right_stick_y / 5);
 
         } else {
             robot.setArmMotor(0);
@@ -89,6 +89,17 @@ public class CompetitionTeleop extends OpMode {
             robot.setMotorSuspend(0);
 
         }
+        //robot purple pixel drop
+        if (gamepad2.dpad_up) {
+            robot.liftHook();
+
+        } else if (gamepad2.dpad_down); {
+            robot.dropHook();
+        }
+
+
+
+
 
         if (gamepad1.atRest()) robot.rest();
     

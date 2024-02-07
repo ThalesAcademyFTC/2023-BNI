@@ -83,9 +83,9 @@ public class Spark {
 
     // Put CONSTANTS here
 
-    static final double HOOK_DROP_POSITION = 0.45;
+    static final double HOOK_DROP_POSITION = 0.5;
 
-    static final double HOOK_UP_POSITION = 0.42;
+    static final double HOOK_UP_POSITION = 0.5;
        
     /**
      * Encoder ticks for an INCH moving FORWARD and BACKWARD
@@ -212,7 +212,8 @@ public class Spark {
 
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All m otors should move the robot forward if set to power 1
-                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
                 //Here would go any additional hardware devices for the robot
@@ -236,6 +237,7 @@ public class Spark {
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
+                intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
                 motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
                 revolveServo = hwMap.crservo.get( "revolveServo" );
                 intakeServo = hwMap.crservo.get( "intakeServo" );
@@ -428,10 +430,10 @@ public class Spark {
     }
 
     public void runIntake( double power ) {
-        intakeServo.setPower(power);
+        intakeMotor.setPower( power );
     }
 
-    public void setHookServo( double position) {
+    public void setHookServo( double position ) {
         hookServo.setPosition( position );
     }
 
