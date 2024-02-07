@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -8,18 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
-import java.util.List;
 
 public class Spark {
 
@@ -70,9 +62,9 @@ public class Spark {
 
     public DcMotor[] allDriveMotors;
 
-    public DcMotor armMotor
+    public DcMotor armMotor;
 
-    public Servo clawServoLeft, clawServoRight hookServo;
+    public Servo clawServoLeft, clawServoRight, hookServo;
 
     //public CRServo revolveServo, intakeServo;
     private IMU imu;
@@ -237,14 +229,11 @@ public class Spark {
                 //Add arm mechanism hardware devices
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
-                intakeMotor = hwMap.dcMotor.get( "intakeMotor" );
-                motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
-                clawServoLeft = hwMap.dcMotor.get( "clawServoLeft" );
-                clawServoRight = hwMap.dcMotor.get( "clawServoRight" );
+                clawServoLeft = (Servo) hwMap.dcMotor.get( "clawServoLeft" );
+                clawServoRight = (Servo) hwMap.dcMotor.get( "clawServoRight" );
                 hookServo = hwMap.servo.get("hookServo");
                // clawServo = hwMap.servo.get( "clawServo" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
-                motorSuspend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 break;
 
@@ -416,16 +405,19 @@ public class Spark {
         clawServoLeft.setPosition( position );
     }
 
-    public void setClawServoRight( double power) {
+    public void setClawServoRight( double position) {
         clawServoRight.setPosition( position );
     }
 
-    public void dropHook(){
+    public void dropHook(double v){
         setHookServo(HOOK_DROP_POSITION);
     }
 
-    public void pickUpHook(){
+    public void pickUpHook(int i){
         setHookServo(HOOK_UP_POSITION);
+    }
+
+    private void setHookServo(double hookUpPosition) {
     }
 
     public void turnRightDegrees( double degrees, double speed ) {

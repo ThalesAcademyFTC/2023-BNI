@@ -62,7 +62,7 @@ public class CompetitionTeleop extends OpMode {
             robot.setArmMotor(0);
         }
 
-        if (gamepad2.left_trigger){
+        if (gamepad2.left_trigger > 5){
             robot.setClawServoLeft(1);
 
         } else {
@@ -70,7 +70,7 @@ public class CompetitionTeleop extends OpMode {
 
         }
 
-        if (gamepad2.right_trigger){
+        if (gamepad2.right_trigger < 5){
             robot.setClawServoRight(1);
 
         } else {
