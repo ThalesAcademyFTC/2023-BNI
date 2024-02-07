@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -15,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Spark {
 
+    public boolean clawToggle;
     /**
      * DECLARE the HardwareMap object used for this library
      * A HardwareMap is a mapping of the different hardware components to the
@@ -512,6 +515,13 @@ public class Spark {
         moveRightInches( -inches, -speed );
 
     }
+
+
+
+
+
+
+
 
     public void waitForMotors(){ // This method safely loops while checking if the opmode is active.
         boolean finished = false;
