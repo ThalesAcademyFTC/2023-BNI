@@ -41,7 +41,7 @@ public class CompetitionTeleop extends OpMode {
         double y = -gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
         double x = gamepad1.left_stick_x * STRAFE_FACTOR; // Scaling to fix
         double turn = gamepad1.right_stick_x; // Turn value
-        boolean clawTilted = false;
+
 
         //Now, set motor powers using x, y, and turn variables
         
@@ -65,16 +65,17 @@ public class CompetitionTeleop extends OpMode {
 
         //Claw tilt 
         if (gamepad2.a) {
-            
-            if (clawTilted == false) {
-                clawTilted = true;
-                robot.tiltClaw();
-            } else if (clawTilted == true) {
-                clawTilted = false;
-                robot.resetClaw();
-            }
-            
-        } 
+            robot.tiltClaw();
+        } else if (gamepad2.b) {
+            robot.resetClaw();
+        }
+
+        //Drone launch while x held
+        if (gamepad2.x) {
+            robot.launchDrone();
+        } else {
+            robot.setDroneMotor(0);
+        }
 
         //Moves large arm down
         if (gamepad2.right_stick_y > 0.3 ){

@@ -49,7 +49,7 @@ public class ButtonRelease extends OpMode {
         //Basically, if the button was released in this iteration but not the previous one.
         // Only runs once, even if button continues to be released
         if (!currentGamepad1.a && previousGamepad1.a) {
-            robot.setClawServo( robot.clawServo.getPosition() - 0.05 );
+            //robot.setClawServo( robot.clawServo.getPosition() - 0.05 );
         }
 
 
