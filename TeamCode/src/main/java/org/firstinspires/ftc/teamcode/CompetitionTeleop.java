@@ -15,7 +15,7 @@ public class CompetitionTeleop extends OpMode {
     public void init() {
 
         // INITIALIZE the library object
-        robot = new Spark( this, Spark.Drivetrain.MECHANUM );
+        robot = new Spark(this, Spark.Drivetrain.MECHANUM );
 
     }
 
@@ -41,12 +41,14 @@ public class CompetitionTeleop extends OpMode {
         double y = -gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
         double x = gamepad1.left_stick_x * STRAFE_FACTOR; // Scaling to fix
         double turn = gamepad1.right_stick_x; // Turn value
-       
+
+
         //Now, set motor powers using x, y, and turn variables
         
         //Movement
-        robot.move( x, y, turn);
+        robot.move(x, y, turn);
 
+<<<<<<< HEAD
         //Run intake
         /*if ( gamepad2.right_trigger > 0.1) {
             robot.setIntakeMotor(gamepad2.right_trigger);
@@ -83,10 +85,108 @@ public class CompetitionTeleop extends OpMode {
             robot.setMotorSuspend(0);
 
         }*/
+        //GAMEPAD 2
 
-//keep this at end
+        //Claws
+        if (gamepad2.right_trigger > 0.1) {
+            robot.openClawR();
+        } else if (gamepad2.right_bumper) {
+            robot.closeClawR();
+        } 
+
+        if (gamepad2.left_trigger > 0.1) {
+            robot.openClawL();
+        } else if (gamepad2.left_bumper) {
+            robot.closeClawL();
+        } 
+
+        //Claw tilt 
+        if (gamepad2.a) {
+            robot.tiltClaw();
+        } else if (gamepad2.b) {
+        //GAMEPAD 2
+
+        //Claws
+        if (gamepad2.right_trigger > 0.1) {
+            robot.openClawR();
+        } else if (gamepad2.right_bumper) {
+            robot.closeClawR();
+        } 
+
+        if (gamepad2.left_trigger > 0.1) {
+            robot.openClawL();
+        } else if (gamepad2.left_bumper) {
+            robot.closeClawL();
+        } 
+
+        //Claw tilt 
+        if (gamepad2.a) {
+            robot.tiltClaw();
+        } else if (gamepad2.b) {
+=======
+        //GAMEPAD 2
+
+        //Claws
+        if (gamepad2.right_trigger > 0.1) {
+            robot.openClawR();
+        } else if (gamepad2.right_bumper) {
+            robot.closeClawR();
+        } 
+
+        if (gamepad2.left_trigger > 0.1) {
+            robot.openClawL();
+        } else if (gamepad2.left_bumper) {
+            robot.closeClawL();
+        } 
+
+        //Claw tilt 
+        if (gamepad2.a) {
+            robot.tiltClaw();
+        } else if (gamepad2.b) {
+>>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
+        //GAMEPAD 2
+
+        //Claws
+        if (gamepad2.right_trigger > 0.1) {
+            robot.openClawR();
+        } else if (gamepad2.right_bumper) {
+            robot.closeClawR();
+        } 
+
+        if (gamepad2.left_trigger > 0.1) {
+            robot.openClawL();
+        } else if (gamepad2.left_bumper) {
+            robot.closeClawL();
+        } 
+
+        //Claw tilt 
+        if (gamepad2.a) {
+            robot.tiltClaw();
+        } else if (gamepad2.b) {
+            robot.resetClaw();
+        }
+
+        //Drone launch while x held
+        if (gamepad2.x) {
+            robot.launchDrone();
+        } else {
+            robot.setDroneMotor(0);
+        }
+
+        //Moves large arm down
+        if (gamepad2.right_stick_y > 0.3 ){
+            robot.liftArm();
+        
+        } else if (gamepad2.right_stick_y < -0.3 ){
+            robot.lowerArm();
+
+        } else {
+            robot.setArmMotor(0);
+        }
+
+
         if (gamepad1.atRest()) robot.rest();
     
-    }  
+    }
 
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //For Billy Dignam. Bless his soul. :)

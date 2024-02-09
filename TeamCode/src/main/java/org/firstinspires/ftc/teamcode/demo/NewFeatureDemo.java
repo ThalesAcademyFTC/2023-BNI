@@ -91,6 +91,15 @@ public class NewFeatureDemo extends OpMode {
             clawToggle = !clawToggle;
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+
+>>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
+
+
+>>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
         //Basically, if the button was pressed in this iteration but not the previous one.
         // Only runs once, even if button is held down.
         if (currentGamepad1.a && !previousGamepad1.a) {
