@@ -60,10 +60,10 @@ public class Finder {
     }
 
     //TODO Need to change the left divider value to a value tested on field
-    private final double LEFT_DIVIDER = -10;
+    private final double LEFT_DIVIDER = 250;
 
     //TODO Need to change the right divider value to a value tested on field
-    private final double RIGHT_DIVIDER = 10;
+    private final double RIGHT_DIVIDER = 600;
 
     public Finder(LinearOpMode auton, WebcamName webcamName, Spark.Team team ) {
 
