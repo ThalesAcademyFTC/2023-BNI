@@ -14,7 +14,7 @@ public class PropTracker extends LinearOpMode {
 
     private Finder finder;
 
-    private Spark.Team team = Spark.Team.BLUE;
+    private Spark.Team team = Spark.Team.RED;
 
 
     @Override

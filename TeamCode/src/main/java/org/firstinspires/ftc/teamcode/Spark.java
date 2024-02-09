@@ -235,7 +235,7 @@ public class Spark {
 
                 //Add arm mechanism hardware devices
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );

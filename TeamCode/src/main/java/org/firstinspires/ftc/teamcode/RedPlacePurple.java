@@ -15,14 +15,16 @@ public class RedPlacePurple extends LinearOpMode {
 
     private Spark.Team team = Spark.Team.RED;
 
-    private Finder.SPIKE_MARK pixelLocation;
+    private Finder.SPIKE_MARK propLocation;
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.TEST);
+        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
 
         finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
+
+        finder.init();
 
 
 
@@ -30,19 +32,20 @@ public class RedPlacePurple extends LinearOpMode {
 
         //variables for auton
 
-        double speed = 0.5;
+        double speed = 0.25;
         int rest = 100;
         //more code needed where indicate
         //robot scans for the spike mark, and places purple pixel
-        pixelLocation = finder.getPixelLocation();
+        propLocation = null;
 
-        while ( opModeIsActive() && pixelLocation == null ) {
+        while ( opModeIsActive() && propLocation == null ) {
 
-            pixelLocation = finder.getPixelLocation();
-            //This updates the array of current detections inside tagger.
             finder.scanWithTelemetry();
 
-            telemetry.addData("Pixel Spike Location: ", pixelLocation);
+            propLocation = finder.getPropLocation();
+            //This updates the array of current detections inside tagger
+
+            telemetry.addData("Pixel Spike Location: ", propLocation);
 
             telemetry.update();
 
@@ -53,31 +56,34 @@ public class RedPlacePurple extends LinearOpMode {
         }
         robot.closeClawL();
         sleep(20);
-        robot.moveForwardInches(28, speed);
+        robot.moveForwardInches(25, speed);
 
         //Now you know the pixel... so you can make a switch statement to process it
-        switch( pixelLocation ) {
+        switch( propLocation ) {
             case LEFT:
                 robot.turnLeftDegrees(90,speed);
-                robot.moveForwardInches(5,speed);
-                robot.openClawL();
+                sleep(20);
+                robot.moveForwardInches(8,speed);
+                sleep(20);
 
                 break;
             case CENTER:
                 robot.moveForwardInches(5,speed);
-                robot.openClawL();
+                sleep(20);
 
                 break;
             case RIGHT:
                 robot.turnRightDegrees(90,speed);
+                sleep(20);
                 robot.moveForwardInches(5,speed);
-                robot.openClawL();
+                sleep(20);
 
                 break;
 
         }
        robot.openClawL();
 
+        robot.moveBackwardInches(5, speed);
         // Close out tagger.
         finder.close();
 
