@@ -60,7 +60,13 @@ public class ButtonToggle extends OpMode {
             clawToggle = !clawToggle;
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
 
+>>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
 
     }
 }

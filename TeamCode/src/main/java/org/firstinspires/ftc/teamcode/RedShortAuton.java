@@ -17,6 +17,7 @@ public class RedShortAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        robot = new Spark(this, Spark.Drivetrain.TEST);
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
 
         finder = new Finder(this, robot.webcamName, team);
