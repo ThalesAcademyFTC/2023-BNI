@@ -450,15 +450,15 @@ public class Spark {
     }
 
     public void resetClaw() {
-        angleServo.setPosition( 0.7 );
+        angleServo.setPosition( 0.46 );
     }
 
     public void openClawL() {
-        clawServoL.setPosition(0.5);
+        clawServoL.setPosition(1);
     }
 
     public void openClawR() {
-        clawServoR.setPosition(0.2);
+        clawServoR.setPosition(0.65);
     }
 
     public void closeClawR() {
@@ -466,7 +466,7 @@ public class Spark {
     }
 
     public void closeClawL() {
-        clawServoL.setPosition(1);
+        clawServoL.setPosition(0.35);
     }
 
 
