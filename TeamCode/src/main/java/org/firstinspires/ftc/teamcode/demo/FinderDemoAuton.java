@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Finder;
 import org.firstinspires.ftc.teamcode.Spark;
-
 @Autonomous(name="FinderDemoAuton")
 @Disabled
 public class FinderDemoAuton extends LinearOpMode {

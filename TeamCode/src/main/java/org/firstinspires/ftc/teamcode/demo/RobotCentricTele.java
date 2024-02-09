@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.demo;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Spark;
-
 @TeleOp()
 public class RobotCentricTele extends OpMode {
 

@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.demo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.firstinspires.ftc.teamcode.Spark;
-
 @TeleOp()
 public class ButtonToggle extends OpMode {
 
@@ -59,14 +57,6 @@ public class ButtonToggle extends OpMode {
         if (currentGamepad1.a && !previousGamepad1.a) {
             clawToggle = !clawToggle;
         }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
-
->>>>>>> 300211f0bece6d1e4a108728ffd21dcb48047a00
 
     }
 }

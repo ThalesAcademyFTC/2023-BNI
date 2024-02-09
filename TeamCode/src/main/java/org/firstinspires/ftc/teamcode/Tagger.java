@@ -8,7 +8,6 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.firstinspires.ftc.teamcode.Spark.Team;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class Tagger {
 
     private WebcamName webcamName;
 
-    private Team team;
+    private Spark.Team team;
 
     /**
      * The integer value of the AprilTag ID for the Blue Left April Tag
@@ -69,7 +68,7 @@ public class Tagger {
      * Allows easily passing through variables like "runtime" and "isOpModeStopped"
      * @param auton the auton that is running Tagger
      */
-    public Tagger( LinearOpMode auton, WebcamName webcamName, Team team ) {
+    public Tagger( LinearOpMode auton, WebcamName webcamName, Spark.Team team ) {
 
         this.auton = auton;
 
@@ -254,7 +253,7 @@ public class Tagger {
     private int getLeftId() {
         int left = BLUE_LEFT;
 
-        if ( team == Team.RED) {
+        if ( team == Spark.Team.RED) {
             left = RED_LEFT;
         }
         return left;
@@ -269,7 +268,7 @@ public class Tagger {
         // Set the id of the center april tag depending on which team the auton is for
         int center = BLUE_CENTER;
 
-        if ( team == Team.RED) {
+        if ( team == Spark.Team.RED) {
             center = RED_CENTER;
         }
         return center;
@@ -284,7 +283,7 @@ public class Tagger {
         // Set the id of the right april tag depending on which team the auton is for
         int right = BLUE_RIGHT;
 
-        if ( team == Team.RED) {
+        if ( team == Spark.Team.RED) {
             right = RED_RIGHT;
         }
         return right;

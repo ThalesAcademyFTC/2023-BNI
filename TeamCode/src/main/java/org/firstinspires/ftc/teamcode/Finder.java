@@ -7,7 +7,6 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
-import org.firstinspires.ftc.teamcode.Spark.Team;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class Finder {
 
     private WebcamName webcamName;
 
-    private Team team;
+    private Spark.Team team;
 
     private Telemetry telem;
 
@@ -66,7 +65,7 @@ public class Finder {
     //TODO Need to change the right divider value to a value tested on field
     private final double RIGHT_DIVIDER = 10;
 
-    public Finder(LinearOpMode auton, WebcamName webcamName, Team team ) {
+    public Finder(LinearOpMode auton, WebcamName webcamName, Spark.Team team ) {
 
         this.auton = auton;
 

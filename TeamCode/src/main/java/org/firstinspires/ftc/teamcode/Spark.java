@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -9,15 +8,21 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+import java.util.List;
 
 public class Spark {
 
-    public boolean clawToggle;
     /**
      * DECLARE the HardwareMap object used for this library
      * A HardwareMap is a mapping of the different hardware components to the
@@ -65,11 +70,11 @@ public class Spark {
 
     public DcMotor[] allDriveMotors;
 
-    public DcMotor armMotor;
+    public DcMotor armMotor, intakeMotor, motorSuspend, droneMotor;
 
-    public Servo clawServoLeft, clawServoRight, hookServo;
+    public Servo clawServoL, clawServoR, angleServo, hookServo;
 
-    //public CRServo revolveServo, intakeServo;
+    public CRServo revolveServo, intakeServo;
     private IMU imu;
 
     private IMU.Parameters parameters;
@@ -78,9 +83,9 @@ public class Spark {
 
     // Put CONSTANTS here
 
-    static final double HOOK_DROP_POSITION = 0.5;
+    static final double HOOK_DROP_POSITION = 0.45;
 
-    static final double HOOK_UP_POSITION = 0.5;
+    static final double HOOK_UP_POSITION = 0.42;
        
     /**
      * Encoder ticks for an INCH moving FORWARD and BACKWARD
@@ -190,7 +195,7 @@ public class Spark {
 
                 //Add arm mechanism hardware devices
 
-                armMotor = hwMap.dcMotor.get( "armMotor" );
+                //armMotor = hwMap.dcMotor.get( "armMotor" );
             
                // clawServo = hwMap.servo.get( "clawServo" );
 
@@ -207,8 +212,7 @@ public class Spark {
 
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All m otors should move the robot forward if set to power 1
-                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
+                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 //Here would go any additional hardware devices for the robot
@@ -230,13 +234,21 @@ public class Spark {
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 //Add arm mechanism hardware devices
+                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
-                clawServoLeft = (Servo) hwMap.dcMotor.get( "clawServoLeft" );
-                clawServoRight = (Servo) hwMap.dcMotor.get( "clawServoRight" );
-                hookServo = hwMap.servo.get("hookServo");
-               // clawServo = hwMap.servo.get( "clawServo" );
+                droneMotor = hwMap.dcMotor.get( "droneMotor" );
+                //motorSuspend = hwMap.dcMotor.get( "motorSuspend" );
+                //revolveServo = hwMap.crservo.get( "revolveServo" );
+                //intakeServo = hwMap.crservo.get( "intakeServo" );
+                //hookServo = hwMap.servo.get("hookServo");
+                angleServo = hwMap.servo.get( "angleServo" );
+                clawServoL = hwMap.servo.get( "clawServoL" );
+                clawServoR = hwMap.servo.get( "clawServoR" );
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
+                //motorSuspend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 break;
 
@@ -392,35 +404,94 @@ public class Spark {
         return imu.getRobotYawPitchRollAngles().getYaw( AngleUnit.DEGREES );
     }
 
-    /**
+    /*/**
      * Sets the arm motor to the given power
      * @param power the power to send to the arm motor
      */
+    public void liftArm() {
+        armMotor.setPower(0.75);
+    }
+
+    public void lowerArm() {
+        armMotor.setPower(-0.5);
+    }
+
     public void setArmMotor( double power ) {
         armMotor.setPower( power );
     }
 
+    public void setDroneMotor( double power ) {
+        droneMotor.setPower( power );
+    }
+
+    public void launchDrone() {
+        droneMotor.setPower(-1);
+    }
+
+    /*public void setMotorSuspend( double power ) {
+        motorSuspend.setPower( power );
+    }
+    
+    public void setIntakeMotor (double power) {
+        intakeMotor.setPower( power );
+    }*/
+    /*
     /**
      * Set the claw servo to the given position
      * @param position the position to set the claw servo to
      */
-    public void setClawServoLeft( double position ) {
-        clawServoLeft.setPosition( position );
+
+    //public void setClawServo( double position ) {
+    //        clawServo.setPosition( position );
+    //}
+
+    public void tiltClaw() {
+        angleServo.setPosition( 0.4 );
     }
 
-    public void setClawServoRight( double position) {
-        clawServoRight.setPosition( position );
+    public void resetClaw() {
+        angleServo.setPosition( 0.7 );
     }
 
-    public void dropHook(double v){
+    public void openClawL() {
+        clawServoL.setPosition(0.5);
+    }
+
+    public void openClawR() {
+        clawServoR.setPosition(0.2);
+    }
+
+    public void closeClawR() {
+        clawServoR.setPosition(0.1);
+    }
+
+    public void closeClawL() {
+        clawServoL.setPosition(1);
+    }
+
+
+    public void setRevolvePower( double power) {
+        revolveServo.setPower( power );
+    }
+
+    public void runIntake( double power ) {
+        intakeServo.setPower(power);
+    }
+
+    public void setHookServo( double position) {
+        hookServo.setPosition( position );
+    }
+
+    public void dropHook(){
         setHookServo(HOOK_DROP_POSITION);
     }
 
-    public void pickUpHook(int i){
+    public void liftHook(){
         setHookServo(HOOK_UP_POSITION);
     }
 
-    private void setHookServo(double hookUpPosition) {
+    public void pixelRelease( double power) {
+       revolveServo.setPower(power);
     }
 
     public void turnRightDegrees( double degrees, double speed ) {
@@ -515,13 +586,6 @@ public class Spark {
         moveRightInches( -inches, -speed );
 
     }
-
-
-
-
-
-
-
 
     public void waitForMotors(){ // This method safely loops while checking if the opmode is active.
         boolean finished = false;

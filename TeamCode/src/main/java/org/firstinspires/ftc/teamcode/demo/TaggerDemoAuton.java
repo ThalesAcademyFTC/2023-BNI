@@ -5,9 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Spark;
 import org.firstinspires.ftc.teamcode.Tagger;
-
+import org.firstinspires.ftc.teamcode.Spark;
 @Autonomous(name="TaggerDemoAuton")
 @Disabled
 public class TaggerDemoAuton extends LinearOpMode {
