@@ -24,7 +24,7 @@ public class RedPlacePurple extends LinearOpMode {
         finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
 
-        robot.liftHook();
+
 
         waitForStart();
 
@@ -47,27 +47,36 @@ public class RedPlacePurple extends LinearOpMode {
             telemetry.update();
 
             // Share the CPU.
+
             sleep(20);
 
         }
+        robot.closeClawL();
+        sleep(20);
         robot.moveForwardInches(28, speed);
 
         //Now you know the pixel... so you can make a switch statement to process it
         switch( pixelLocation ) {
             case LEFT:
-                robot.turnRightDegrees(90,speed);
+                robot.turnLeftDegrees(90,speed);
+                robot.moveForwardInches(5,speed);
+                robot.openClawL();
 
                 break;
             case CENTER:
-                robot.turnLeftDegrees(180,speed);
+                robot.moveForwardInches(5,speed);
+                robot.openClawL();
 
                 break;
             case RIGHT:
-                robot.turnLeftDegrees(90,speed);
+                robot.turnRightDegrees(90,speed);
+                robot.moveForwardInches(5,speed);
+                robot.openClawL();
+
                 break;
 
         }
-       //robot.dropHook();
+       robot.openClawL();
 
         // Close out tagger.
         finder.close();

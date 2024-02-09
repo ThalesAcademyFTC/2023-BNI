@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="LakelanTeleop")
+@TeleOp(name="CompetitionTeleop")
 public class CompetitionTeleop extends OpMode {
 
     Spark robot;
@@ -38,9 +38,9 @@ public class CompetitionTeleop extends OpMode {
 
 
         //First, define some key variables for movement
-        double y = -gamepad1.left_stick_y; // Y gamepad is reversed, so reverse this value
-        double x = gamepad1.left_stick_x * STRAFE_FACTOR; // Scaling to fix
-        double turn = gamepad1.right_stick_x; // Turn value
+        double y = -gamepad1.left_stick_y / 2; // Y gamepad is reversed, so reverse this value
+        double x = (gamepad1.left_stick_x * STRAFE_FACTOR) / 2; // Scaling to fix
+        double turn = gamepad1.right_stick_x / 2; // Turn value
 
 
         //Now, set motor powers using x, y, and turn variables
@@ -70,8 +70,8 @@ public class CompetitionTeleop extends OpMode {
             robot.resetClaw();
         }
 
-        //Drone launch while x held
-        if (gamepad2.x) {
+        //Drone launch while y is held
+        if (gamepad1.y) {
             robot.launchDrone();
         } else {
             robot.setDroneMotor(0);
