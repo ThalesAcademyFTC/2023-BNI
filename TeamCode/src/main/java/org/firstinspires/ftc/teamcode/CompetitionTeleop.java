@@ -7,7 +7,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class CompetitionTeleop extends OpMode {
 
     Spark robot;
-    
+
+    boolean leftClawToggle = false;
+    boolean rightClawToggle = false;
+
     /** Allows for driver customization of movement */
     static final double STRAFE_FACTOR = 1.1;
 
@@ -52,14 +55,21 @@ public class CompetitionTeleop extends OpMode {
 
         //Claws
         if (gamepad2.right_trigger > 0.1) {
+            rightClawToggle = !rightClawToggle;
+        }
+        if (gamepad2.left_trigger > 0.1) {
+            leftClawToggle = !leftClawToggle;
+        }
+
+        if (!rightClawToggle) {
             robot.openClawR();
-        } else if (gamepad2.right_bumper) {
+        } else {
             robot.closeClawR();
         } 
 
-        if (gamepad2.left_trigger > 0.1) {
+        if (!leftClawToggle) {
             robot.openClawL();
-        } else if (gamepad2.left_bumper) {
+        } else {
             robot.closeClawL();
         } 
 
