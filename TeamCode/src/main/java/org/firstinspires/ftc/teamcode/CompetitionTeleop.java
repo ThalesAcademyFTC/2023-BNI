@@ -8,8 +8,16 @@ public class CompetitionTeleop extends OpMode {
 
     Spark robot;
 
+    boolean rightToggleToggle = false;
+
+    boolean leftToggleToggle = false;
+
     boolean leftClawToggle = false;
     boolean rightClawToggle = false;
+
+    boolean redMode = false;
+
+    boolean redModeToggle = false;
 
     /** Allows for driver customization of movement */
     static final double STRAFE_FACTOR = 1.1;
@@ -53,20 +61,34 @@ public class CompetitionTeleop extends OpMode {
 
         //GAMEPAD 2
 
-        //Claws
-        if (gamepad2.right_trigger > 0.1) {
+
+        //Right trigger toggles between claw open and claw close
+
+        if (gamepad2.right_trigger > 0.1 && !rightToggleToggle) {
+            rightToggleToggle = true;
             rightClawToggle = !rightClawToggle;
-        }
-        if (gamepad2.left_trigger > 0.1) {
-            leftClawToggle = !leftClawToggle;
+        } else {
+            rightToggleToggle = false;
         }
 
+        //left trigger toggles between claw open and claw close
+
+        if (gamepad2.left_trigger > 0.1 && !leftToggleToggle) {
+            leftToggleToggle = true;
+            leftClawToggle = !leftClawToggle;
+        } else {
+            //allows the toggle to toggle again
+            leftToggleToggle = false;
+        }
+
+        //right claw servo toggle code, claw starts as open and closes on first button press
         if (!rightClawToggle) {
             robot.openClawR();
         } else {
             robot.closeClawR();
-        } 
+        }
 
+        //left claw servo toggle code, claw starts as open and closes on first button press
         if (!leftClawToggle) {
             robot.openClawL();
         } else {
@@ -97,6 +119,18 @@ public class CompetitionTeleop extends OpMode {
         } else {
             robot.setArmMotor(0);
         }
+
+        //led control for robot
+    //    if (gamepad1.a && !redModeToggle) {
+        //    redModeToggle = true;
+      //      redMode = !redMode;
+    //    } else {
+            //    redModeToggle = false;
+        //  }
+
+        //  if (redMode) {
+
+      //  }
 
 
         if (gamepad1.atRest()) robot.rest();

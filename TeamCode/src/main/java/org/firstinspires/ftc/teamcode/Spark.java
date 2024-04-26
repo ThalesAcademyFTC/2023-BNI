@@ -72,7 +72,7 @@ public class Spark {
 
     public DcMotor armMotor, intakeMotor, motorSuspend, droneMotor;
 
-    public Servo clawServoL, clawServoR, angleServo, hookServo;
+    public Servo clawServoL, clawServoR, angleServo, hookServo, ledControl;
 
     public CRServo revolveServo, intakeServo;
     private IMU imu;
@@ -244,6 +244,7 @@ public class Spark {
                 //revolveServo = hwMap.crservo.get( "revolveServo" );
                 //intakeServo = hwMap.crservo.get( "intakeServo" );
                 //hookServo = hwMap.servo.get("hookServo");
+                ledControl = hwMap.servo.get( "ledControl");
                 angleServo = hwMap.servo.get( "angleServo" );
                 clawServoL = hwMap.servo.get( "clawServoL" );
                 clawServoR = hwMap.servo.get( "clawServoR" );
