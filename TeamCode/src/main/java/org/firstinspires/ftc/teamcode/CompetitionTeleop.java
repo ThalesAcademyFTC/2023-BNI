@@ -44,6 +44,8 @@ public class CompetitionTeleop extends OpMode {
         telemetry.addData("front right encoder:", robot.motorFrontRight.getCurrentPosition());
         telemetry.addData("back left encoder:", robot.motorBackLeft.getCurrentPosition());
         telemetry.addData("back right encoder:", robot.motorBackRight.getCurrentPosition());
+        telemetry.addData( "RightClaw0Postion", robot.clawServoR.getPosition());
+        telemetry.addData( "LeftClaw0Postion", robot.clawServoL.getPosition());
 
         telemetry.update();
 

@@ -72,7 +72,7 @@ public class Spark {
 
     public DcMotor armMotor, intakeMotor, motorSuspend, droneMotor;
 
-    public Servo clawServoL, clawServoR, angleServo, hookServo, ledControl;
+    public Servo clawServoL, clawServoR, angleServo, hookServo;
 
     public CRServo revolveServo, intakeServo;
     private IMU imu;
@@ -212,6 +212,8 @@ public class Spark {
 
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All m otors should move the robot forward if set to power 1
+                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -234,8 +236,6 @@ public class Spark {
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
 
                 //Add arm mechanism hardware devices
-                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 armMotor = hwMap.dcMotor.get( "armMotor" );
@@ -244,7 +244,7 @@ public class Spark {
                 //revolveServo = hwMap.crservo.get( "revolveServo" );
                 //intakeServo = hwMap.crservo.get( "intakeServo" );
                 //hookServo = hwMap.servo.get("hookServo");
-                ledControl = hwMap.servo.get( "ledControl");
+                //ledControl = hwMap.servo.get( "ledControl");
                 angleServo = hwMap.servo.get( "angleServo" );
                 clawServoL = hwMap.servo.get( "clawServoL" );
                 clawServoR = hwMap.servo.get( "clawServoR" );
@@ -455,19 +455,19 @@ public class Spark {
     }
 
     public void openClawL() {
-        clawServoL.setPosition(1);
+        clawServoL.setPosition(0.6);
     }
 
     public void openClawR() {
-        clawServoR.setPosition(0.65);
+        clawServoR.setPosition(0.4);
     }
 
     public void closeClawR() {
-        clawServoR.setPosition(0.1);
+        clawServoR.setPosition(0.01);
     }
 
     public void closeClawL() {
-        clawServoL.setPosition(0.35);
+        clawServoL.setPosition(.9);
     }
 
 
