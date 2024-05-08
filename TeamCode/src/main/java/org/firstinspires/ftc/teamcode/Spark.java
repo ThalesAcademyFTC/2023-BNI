@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -138,6 +139,8 @@ public class Spark {
         setupHardware();
     }
 
+
+    RevBlinkinLedDriver lights;
     /**
      * This constructor is used for testing the hardwareMap and drivetrain
      * @param hardwareMap the hardwareMap being tested
@@ -202,6 +205,8 @@ public class Spark {
 
                 break;
 
+
+
             case MECHANUM:
 
                 //First, setup the motors that are used for the drivetrain
@@ -216,7 +221,8 @@ public class Spark {
                 motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
+                //Lights :D
+                lights = hwMap.get(RevBlinkinLedDriver.class, "lights");
                 //Here would go any additional hardware devices for the robot
 
                 // Map the imu to the hardware device
@@ -308,7 +314,10 @@ public class Spark {
         motorFrontRight.setPower( 0 );
     }
 
-    /**
+
+
+
+        /**
      * This function controls movement for the robot.
      * @param x the x speed value
      * @param y the y speed value
