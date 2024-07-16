@@ -54,11 +54,11 @@ public class Lights extends OpMode {
             robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_STROBE);
         }
         if (gamepad1.left_stick_button) {
-            robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_STROBE);
+            robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.TWINKLES_OCEAN_PALETTE);
         }
-        if (gamepad1.right_stick_button) {
-            robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_HEARTBEAT_FAST);
-        }
+
+
     }
+
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  //For Billy Dignam. Bless his soul. :)
