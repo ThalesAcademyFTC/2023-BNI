@@ -68,6 +68,8 @@ public class Spark {
 
     public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
 
+
+
     public DcMotor[] allDriveMotors;
 
     public DcMotor armMotor, intakeMotor, motorSuspend, droneMotor;
@@ -211,10 +213,11 @@ public class Spark {
                 motorBackRight = hwMap.dcMotor.get( "motorBackRight" );
 
                 //Next, reverse motors that need to spin the other direction
-                // Tip: All m otors should move the robot forward if set to power 1
+                // Tip: All motors should move the robot forward if set to power 1
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 //Here would go any additional hardware devices for the robot
@@ -227,8 +230,7 @@ public class Spark {
                 //Check the direction that the USB plugs are facing
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT)
-                );
+                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
 
                 imu.initialize( parameters );
 
@@ -262,7 +264,7 @@ public class Spark {
                 motorBackRight = hwMap.dcMotor.get( "motorBackRight" );
 
                 //Next, reverse motors that need to spin the other direction
-                // Tip: All m otors should move the robot forward if set to power 1
+                // Tip: All motors should move the robot forward if set to power 1
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -281,7 +283,7 @@ public class Spark {
 
                 imu.initialize( parameters );
 
-                //Camera setup
+                //camera setup!
                 webcamName = hwMap.get(WebcamName.class, "Webcam 1");
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
@@ -370,7 +372,7 @@ public class Spark {
     }
 
     public void moveRight( double speed ){
-        move( -speed, 0, 0 );
+        move( speed, 0, 0 );
     }
 
     public void moveForward( double speed ){
