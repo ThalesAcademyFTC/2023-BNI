@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.demo;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Spark;
+@Disabled
 @TeleOp()
 public class ButtonToggle extends OpMode {
 
