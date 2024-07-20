@@ -200,7 +200,7 @@ public class Spark {
 
                 //Add arm mechanism hardware devices
 
-                //armMotor = hwMap.dcMotor.get( "armMotor" );
+                armMotor = hwMap.dcMotor.get( "armMotor" );
             
                // clawServo = hwMap.servo.get( "clawServo" );
 
