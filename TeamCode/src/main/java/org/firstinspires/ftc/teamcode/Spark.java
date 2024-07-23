@@ -272,6 +272,9 @@ public class Spark {
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All motors should move the robot forward if set to power 1
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 //Here would go any additional hardware devices for the robot
@@ -290,7 +293,7 @@ public class Spark {
                 imu.initialize( parameters );
 
                 //camera setup!
-                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+                //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
                 break;
@@ -327,52 +330,22 @@ public class Spark {
      */
     public void move( double x, double y, double turn ) {
 
-        switch ( drive ) {
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio, but only when
+        // at least one is out of the range [-1, 1]`
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
-            case MECHANUM:
+        // Save values for the power of each motor
+        double frontLeftPower = ( y + x + turn ) / denominator;
+        double backLeftPower = ( y - x + turn ) / denominator;
+        double frontRightPower = ( y - x - turn ) / denominator;
+        double backRightPower = ( y + x - turn ) / denominator;
 
-                // Denominator is the largest motor power (absolute value) or 1
-                // This ensures all the powers maintain the same ratio, but only when
-                // at least one is out of the range [-1, 1]`
-                double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
-
-                // Save values for the power of each motor
-                double frontLeftPower = ( y + x + turn ) / denominator;
-                double backLeftPower = ( y - x + turn ) / denominator;
-                double frontRightPower = ( y - x - turn ) / denominator;
-                double backRightPower = ( y + x - turn ) / denominator;
-
-                //Now, assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
-
-                break;
-
-
-            case TEST:
-
-                // Denominator is the largest motor power (absolute value) or 1
-                // This ensures all the powers maintain the same ratio, but only when
-                // at least one is out of the range [-1, 1]`
-                denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
-
-                // Save values for the power of each motor
-                frontLeftPower = ( y + x + turn ) / denominator;
-                backLeftPower = ( y - x + turn ) / denominator;
-                frontRightPower = ( y - x - turn ) / denominator;
-                backRightPower = ( y + x - turn ) / denominator;
-
-                //Now, assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
-
-                break;
-
-        }
+        //Now, assign that motor power to each motor
+        motorFrontLeft.setPower( frontLeftPower );
+        motorBackLeft.setPower( backLeftPower );
+        motorFrontRight.setPower( frontRightPower );
+        motorBackRight.setPower( backRightPower );
 
     }
 
@@ -470,7 +443,7 @@ public class Spark {
     }
 
     public void openClawR() {
-        clawServoR.setPosition(0.4);
+        clawServoR.setPosition(0.3);
     }
 
     public void closeClawR() {
@@ -540,17 +513,24 @@ public class Spark {
         // Converts to integer by rounding. CASTS to int after rounding
         int tickTarget = (int)Math.round( inches * Y_INCH_TICKS );
 
-        resetDriveEncoders();
 
         for ( DcMotor x: allDriveMotors ) {
 
             x.setTargetPosition( tickTarget );
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         }
 
         // Move forward. Think of this like a coordinate plane :)
         move( 0, speed, 0 );
+
+        for ( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+
 
         // Wait for motors to reach the desired tick level
         waitForMotors();
@@ -602,16 +582,14 @@ public class Spark {
     public void waitForMotors(){ // This method safely loops while checking if the opmode is active.
         boolean finished = false;
         while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
-            for (DcMotor x : allDriveMotors) {
-                if (x.getCurrentPosition() >= x.getTargetPosition() + 2 || x.getCurrentPosition() <= x.getTargetPosition() - 2) {
-                    telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
-                    telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
-                    telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
-                    telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
-                    telem.update();
-                } else {
-                    finished = true;
-                }
+            if (motorFrontLeft.isBusy() || motorBackLeft.isBusy() || motorFrontRight.isBusy() || motorBackRight.isBusy()) {
+                telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
+                telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
+                telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
+                telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
+                telem.update();
+            } else {
+                finished = true;
             }
         }
     }

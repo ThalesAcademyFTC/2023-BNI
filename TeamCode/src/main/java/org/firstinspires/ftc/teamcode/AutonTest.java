@@ -14,19 +14,16 @@ public class AutonTest extends LinearOpMode {
 
     private Tagger tagger;
 
-    private Spark.Team team = Spark.Team.BLUE;
+    private Spark.Team team = Spark.Team.RED;
 
     @Override
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.TEST);
 
-        // TODO Change the team to whichever team this auton is for
-        tagger = new Tagger( this, robot.webcamName, team);
-        runtime.reset();
-
-        tagger.init();
 
         waitForStart();
+
+        runtime.reset();
 
         robot.moveForwardInches(48, 0.5);
 
@@ -34,7 +31,7 @@ public class AutonTest extends LinearOpMode {
         // This just fills telemetry data with the detected tag.
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                if (runtime.seconds() < 30) {
+                /*if (runtime.seconds() < 30) {
                     //LAVA PALLETTE IS A TEST TO SEE HOW IT BLINKS, THIS WILL BE GREEN IN THE FUTURE
                     robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_LAVA_PALETTE);
                 }else if (runtime.seconds() >= 20) {
@@ -43,9 +40,7 @@ public class AutonTest extends LinearOpMode {
                     robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_RED);
                 }else if (runtime.seconds() == 30) {
                     robot.lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-                }
-
-                tagger.scanWithTelemetry();
+                } */
 
                 // Push telemetry to the Driver Station.
                 telemetry.update();
@@ -54,9 +49,6 @@ public class AutonTest extends LinearOpMode {
                 sleep(20);
             }
         }
-
-        // Save more CPU resources when camera is no longer needed.
-        tagger.close();
 
     }
 
