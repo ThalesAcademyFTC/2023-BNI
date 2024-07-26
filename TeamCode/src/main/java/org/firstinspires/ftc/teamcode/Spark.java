@@ -220,9 +220,9 @@ public class Spark {
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All motors should move the robot forward if set to power 1
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 //Lights :D
                 lights = hwMap.get(RevBlinkinLedDriver.class, "lights");
