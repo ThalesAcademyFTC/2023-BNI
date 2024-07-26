@@ -91,16 +91,17 @@ public class Spark {
     static final double HOOK_UP_POSITION = 0.42;
        
     /**
-     * Encoder ticks for an INCH moving FORWARD and BACKWARD
-     * A good way to get this value is to run a test auton that moves forward for 500? ticks and then measure the distance.
+     * Encoder ticks for an INCH of movement
+     * A good way to get this value is to run a test auton that moves forward for 500 ticks and then measure the distance.
      */
-    static final double Y_INCH_TICKS = 40;
+    static final double INCH_TICKS = 40;
 
     /**
-     * Encoder ticks for an INCH moving FORWARD and BACKWARD
-     * A good way to get this value is to run a test auton that moves left for 500? ticks and then measure the distance.
+     * Encoder ticks for turning 90 degrees
+     * May take some trial and error to get this value
      */
-    static final double X_INCH_TICKS = 40;
+    static final double NINETY_DEGREE_TICKS = 500;
+
 
     /**
      * The CONSTRUCTOR for the library class. This constructor pulls the HardwareMap from the opmode
@@ -479,7 +480,7 @@ public class Spark {
        revolveServo.setPower(power);
     }
 
-    public void turnRightDegrees( double degrees, double speed ) {
+    /*public void turnRightDegrees( double degrees, double speed ) {
 
         //If this is turning in the wrong direction, swap the + to a - below
         double target = getHeading() + degrees;
@@ -506,12 +507,12 @@ public class Spark {
         //haha, I am using another function so I don't have to rewrite the code.
         turnRightDegrees( -degrees, -speed );
 
-    }
+    } */
 
     public void moveForwardInches( double inches, double speed ) {
 
         // Converts to integer by rounding. CASTS to int after rounding
-        int tickTarget = (int)Math.round( inches * Y_INCH_TICKS );
+        int tickTarget = (int)Math.round( inches * INCH_TICKS );
 
 
         for ( DcMotor x: allDriveMotors ) {
@@ -550,19 +551,30 @@ public class Spark {
     public void moveRightInches( double inches, double speed ) {
 
         // Converts to integer by rounding. CASTS to int after rounding
-        int tickTarget = (int)Math.round( inches * X_INCH_TICKS );
+        int tickTarget = (int)Math.round( inches * INCH_TICKS );
 
         resetDriveEncoders();
 
+        // Motor movement to go right
+        motorFrontLeft.setTargetPosition( tickTarget );
+        motorFrontRight.setTargetPosition( -tickTarget );
+        motorBackLeft.setTargetPosition( -tickTarget );
+        motorBackRight.setTargetPosition( tickTarget );
+
         for( DcMotor x: allDriveMotors ) {
 
-            x.setTargetPosition( tickTarget );
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         }
 
         // Move right. Think of this like a coordinate plane :)
         move( speed, 0, 0 );
+
+        for ( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
 
         // Wait for motors to reach the desired tick level
         waitForMotors();
@@ -579,14 +591,56 @@ public class Spark {
 
     }
 
+    public void turnRightDegrees( int degrees, double speed ) {
+
+        // Converts to integer by rounding. CASTS to int after rounding
+        int tickTarget = (int)Math.round( degrees * ( NINETY_DEGREE_TICKS / 90 ) );
+
+        resetDriveEncoders();
+
+        // Motor movement to turn right
+        motorFrontLeft.setTargetPosition( tickTarget );
+        motorFrontRight.setTargetPosition( -tickTarget );
+        motorBackLeft.setTargetPosition( tickTarget );
+        motorBackRight.setTargetPosition( -tickTarget );
+
+        for( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        }
+
+        // Move right. Think of this like a coordinate plane :)
+        move(0 , 0, speed );
+
+        for ( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        // Wait for motors to reach the desired tick level
+        waitForMotors();
+
+        // Reset motors for normal movement
+        resetDriveEncoders();
+
+    }
+
+    public void turnLeftDegrees( int degrees, double speed ) {
+
+        turnRightDegrees(-degrees, -speed );
+
+    }
+
     public void waitForMotors(){ // This method safely loops while checking if the opmode is active.
         boolean finished = false;
         while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
             if (motorFrontLeft.isBusy() || motorBackLeft.isBusy() || motorFrontRight.isBusy() || motorBackRight.isBusy()) {
-                telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
-                telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
-                telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
-                telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
+                telem.addData("front left encoder:", "%7d / % 7d", motorFrontLeft.getCurrentPosition(), motorFrontLeft.getTargetPosition());
+                telem.addData("back left encoder:", "%7d / % 7d", motorBackLeft.getCurrentPosition(), motorBackLeft.getTargetPosition());
+                telem.addData("front right encoder:", "%7d / % 7d", motorFrontRight.getCurrentPosition(), motorFrontRight.getTargetPosition());
+                telem.addData("back right encoder:", "%7d / % 7d", motorBackRight.getCurrentPosition(), motorBackRight.getTargetPosition());
                 telem.update();
             } else {
                 finished = true;
