@@ -286,8 +286,8 @@ public class Spark {
                 //Check the direction that the logo is facing.
                 //Check the direction that the USB plugs are facing
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT)
+                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP)
                 );
 
                 imu.initialize( parameters );

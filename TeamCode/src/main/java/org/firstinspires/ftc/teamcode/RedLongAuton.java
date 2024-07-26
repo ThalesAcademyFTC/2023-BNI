@@ -35,7 +35,7 @@ public class RedLongAuton extends LinearOpMode {
         //robot scans for the spike mark, and places purple pixel
         //pixelLocation = finder.getPixelLocation();
 
-        while ( opModeIsActive() && pixelLocation == null ) {
+        //while ( opModeIsActive() && pixelLocation == null ) {
 
             //pixelLocation = finder.getPixelLocation();
             //This updates the array of current detections inside tagger.
@@ -46,9 +46,9 @@ public class RedLongAuton extends LinearOpMode {
             //telemetry.update();
 
             // Share the CPU.
-            sleep(20);
+            //sleep(20);
 
-        }
+        //}
 
         //Now you know the pixel... so you can make a switch statement to process it
         /*switch( pixelLocation ) {
@@ -71,11 +71,11 @@ public class RedLongAuton extends LinearOpMode {
         // Close out tagger.
         finder.close();*/
 
-        robot.moveForwardInches(37, speed);
-        sleep(rest);
+        //robot.moveForwardInches(37, speed);
+        //sleep(rest);
 
-        robot.moveBackwardInches(34, speed);
-        sleep(rest);
+        //robot.moveBackwardInches(34, speed);
+        //sleep(rest);
 
         robot.turnRightDegrees(90, 0.75);
         sleep(rest);
