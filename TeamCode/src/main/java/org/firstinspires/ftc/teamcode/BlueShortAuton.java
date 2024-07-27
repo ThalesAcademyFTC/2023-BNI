@@ -39,7 +39,11 @@ public class BlueShortAuton extends LinearOpMode {
         double speed = 0.5;
         int rest = 100;
 
-        robot.moveRightInches(48,speed);
+        robot.turnRightDegrees(90, speed);
+        sleep(rest);
+
+        robot.moveBackwardInches(48,speed);
+
 
         
 //        //Code for auton

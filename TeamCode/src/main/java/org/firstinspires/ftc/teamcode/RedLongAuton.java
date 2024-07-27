@@ -20,7 +20,7 @@ public class RedLongAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.TEST);
+        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
 
         //finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
@@ -77,11 +77,13 @@ public class RedLongAuton extends LinearOpMode {
         //robot.moveBackwardInches(34, speed);
         //sleep(rest);
 
-        robot.turnRightDegrees(90, speed);
+        robot.turnLeftDegrees(90, speed);
         sleep(rest);
 
-        robot.moveForwardInches(96, speed);
+        robot.moveRightInches(48, speed);
         sleep(rest);
+
+        robot.moveBackwardInches(96, speed);
 
         /*robot.moveLeftInches(24, speed);
         sleep(rest);

@@ -18,7 +18,7 @@ public class RedShortAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.TEST);
+        //robot = new Spark(this, Spark.Drivetrain.TEST);
         robot = new Spark(this, Spark.Drivetrain.MECHANUM);
 
         finder = new Finder(this, robot.webcamName, team);
@@ -36,7 +36,10 @@ public class RedShortAuton extends LinearOpMode {
 
         //code below makes the robot move forward, scan for the spike mark, and places purple pixel
 
-        robot.moveForwardInches(37, speed);
+        robot.turnLeftDegrees(90, speed);
+        sleep(rest);
+
+        robot.moveBackwardInches(48,speed);
         //robot.sleep(rest);
 
         /*robot scans for spike mark
@@ -47,7 +50,7 @@ public class RedShortAuton extends LinearOpMode {
 
 
         //robot moves back and approaches backboard:
-        robot.moveBackwardInches(9, speed);
+        /*robot.moveBackwardInches(9, speed);
         //robot.sleep(rest);
 
         robot.turnRightDegrees(90, 0.75);
@@ -83,7 +86,7 @@ public class RedShortAuton extends LinearOpMode {
         robot.moveLeftInches(24, speed);
         //robot.sleep(rest);
 
-        robot.moveForwardInches(18, speed);
+        robot.moveForwardInches(18, speed);*/
 
         //end
 

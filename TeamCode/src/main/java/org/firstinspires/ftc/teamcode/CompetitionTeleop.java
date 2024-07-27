@@ -46,6 +46,7 @@ public class CompetitionTeleop extends OpMode {
         telemetry.addData("FrontLeft", robot.motorFrontLeft.getPower());
         telemetry.addData( "RightClaw0Postion", robot.clawServoR.getPosition());
         telemetry.addData( "LeftClaw0Postion", robot.clawServoL.getPosition());
+        telemetry.addData("DroneMotor", robot.droneMotor.getPower());
 
         telemetry.update();
 
@@ -69,7 +70,7 @@ public class CompetitionTeleop extends OpMode {
         if (gamepad2.right_trigger > 0.1 && !rightToggleToggle) {
             rightToggleToggle = true;
             rightClawToggle = !rightClawToggle;
-        } else {
+        } else if (gamepad2.right_trigger <= 0.1 && rightToggleToggle) {
             rightToggleToggle = false;
         }
 
@@ -78,7 +79,7 @@ public class CompetitionTeleop extends OpMode {
         if (gamepad2.left_trigger > 0.1 && !leftToggleToggle) {
             leftToggleToggle = true;
             leftClawToggle = !leftClawToggle;
-        } else {
+        } else if (gamepad2.left_trigger <= 0.1 && leftToggleToggle) {
             //allows the toggle to toggle again
             leftToggleToggle = false;
         }

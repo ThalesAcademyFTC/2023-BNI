@@ -14,7 +14,7 @@ public class BlueLongAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Spark(this, Spark.Drivetrain.TEST);
+        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
         runtime.reset();
 
         waitForStart();
@@ -40,7 +40,7 @@ public class BlueLongAuton extends LinearOpMode {
 
         //robot moves back and approaches backboard
                
-        robot.moveBackwardInches(9, speed);
+        /*robot.moveBackwardInches(9, speed);
         sleep(100);
         
         robot.turnLeftDegrees(90, speed * 3/2);
@@ -74,7 +74,15 @@ public class BlueLongAuton extends LinearOpMode {
         sleep(100);
         
         robot.moveForwardInches(18, speed);
-        sleep(100);
+        sleep(100);*/
+
+        robot.turnRightDegrees(90, speed);
+        sleep(rest);
+
+        robot.moveLeftInches(48, speed);
+        sleep(rest);
+
+        robot.moveBackwardInches(96, speed);
 
         while (opModeIsActive() && runtime.milliseconds() > 30000){
             //If you want to use a loop, here's an example
