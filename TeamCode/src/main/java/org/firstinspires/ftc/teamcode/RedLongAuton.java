@@ -77,13 +77,13 @@ public class RedLongAuton extends LinearOpMode {
         //robot.moveBackwardInches(34, speed);
         //sleep(rest);
 
-        robot.turnRightDegrees(90, 0.75);
+        robot.turnRightDegrees(90, speed);
         sleep(rest);
 
-        robot.moveForwardInches(50, speed);
+        robot.moveForwardInches(96, speed);
         sleep(rest);
 
-        robot.moveLeftInches(24, speed);
+        /*robot.moveLeftInches(24, speed);
         sleep(rest);
 
 
@@ -111,7 +111,7 @@ public class RedLongAuton extends LinearOpMode {
         robot.moveLeftInches(24, speed);
         sleep(rest);
 
-        robot.moveForwardInches(12, speed);
+        robot.moveForwardInches(12, speed);*/
 
         while (opModeIsActive() && runtime.milliseconds() > 30000){
             //If you want to use a loop, here's an example

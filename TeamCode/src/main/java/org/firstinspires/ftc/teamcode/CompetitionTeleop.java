@@ -40,10 +40,10 @@ public class CompetitionTeleop extends OpMode {
         //Right bumper claw open
         //Left bumper claw close
 
-        telemetry.addData("front left encoder:", robot.motorFrontLeft.getCurrentPosition());
-        telemetry.addData("front right encoder:", robot.motorFrontRight.getCurrentPosition());
-        telemetry.addData("back left encoder:", robot.motorBackLeft.getCurrentPosition());
-        telemetry.addData("back right encoder:", robot.motorBackRight.getCurrentPosition());
+        telemetry.addData("BackRight", robot.motorBackRight.getPower());
+        telemetry.addData("BackLeft", robot.motorBackLeft.getPower());
+        telemetry.addData("FrontRight", robot.motorFrontRight.getPower());
+        telemetry.addData("FrontLeft", robot.motorFrontLeft.getPower());
         telemetry.addData( "RightClaw0Postion", robot.clawServoR.getPosition());
         telemetry.addData( "LeftClaw0Postion", robot.clawServoL.getPosition());
 

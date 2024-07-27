@@ -94,13 +94,13 @@ public class Spark {
      * Encoder ticks for an INCH of movement
      * A good way to get this value is to run a test auton that moves forward for 500 ticks and then measure the distance.
      */
-    static final double INCH_TICKS = 40;
+    static final double INCH_TICKS = 60;
 
     /**
      * Encoder ticks for turning 90 degrees
      * May take some trial and error to get this value
      */
-    static final double NINETY_DEGREE_TICKS = 500;
+    static final double NINETY_DEGREE_TICKS = 1075;
 
 
     /**
@@ -217,6 +217,11 @@ public class Spark {
                 motorFrontRight = hwMap.dcMotor.get( "motorFrontRight" );
                 motorBackLeft = hwMap.dcMotor.get( "motorBackLeft" );
                 motorBackRight = hwMap.dcMotor.get( "motorBackRight" );
+
+                motorFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motorBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motorBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motorFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All motors should move the robot forward if set to power 1
