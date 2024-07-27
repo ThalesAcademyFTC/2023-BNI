@@ -6,7 +6,27 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 @Autonomous(name="RedShortAuton")
-public class RedShortAuton extends LinearOpMode {
+public class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RedShortAuton extends LinearOpMode {
 
     private Spark robot;
 
