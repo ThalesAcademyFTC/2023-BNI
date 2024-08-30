@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-@Disabled
+//@Disabled
 @Autonomous(name="RedLongAuton")
 public class RedLongAuton extends LinearOpMode {
 
@@ -12,7 +12,7 @@ public class RedLongAuton extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    private Finder finder;
+    //private Finder finder;
 
     private Spark.Team team = Spark.Team.RED;
 
@@ -22,7 +22,7 @@ public class RedLongAuton extends LinearOpMode {
     public void runOpMode() {
         robot = new Spark(this, Spark.Drivetrain.TEST);
 
-        finder = new Finder(this, robot.webcamName, team);
+        //finder = new Finder(this, robot.webcamName, team);
         runtime.reset();
 
         waitForStart();
@@ -33,25 +33,25 @@ public class RedLongAuton extends LinearOpMode {
         int rest = 100;
         //more code needed where indicate
         //robot scans for the spike mark, and places purple pixel
-        pixelLocation = finder.getPixelLocation();
+        //pixelLocation = finder.getPixelLocation();
 
-        while ( opModeIsActive() && pixelLocation == null ) {
+        //while ( opModeIsActive() && pixelLocation == null ) {
 
-            pixelLocation = finder.getPixelLocation();
+            //pixelLocation = finder.getPixelLocation();
             //This updates the array of current detections inside tagger.
-            finder.scanWithTelemetry();
+            //finder.scanWithTelemetry();
 
-            telemetry.addData("Pixel Spike Location: ", pixelLocation);
+            //telemetry.addData("Pixel Spike Location: ", pixelLocation);
 
-            telemetry.update();
+            //telemetry.update();
 
             // Share the CPU.
-            sleep(20);
+            //sleep(20);
 
-        }
+        //}
 
         //Now you know the pixel... so you can make a switch statement to process it
-        switch( pixelLocation ) {
+        /*switch( pixelLocation ) {
             case LEFT:
                 //Do these things if the pixel is on the left mark...
                 //Note: You may find it helpful to create a function called moveToPixelBoard()
@@ -69,13 +69,13 @@ public class RedLongAuton extends LinearOpMode {
 
 
         // Close out tagger.
-        finder.close();
+        finder.close();*/
 
-        robot.moveForwardInches(37, speed);
-        sleep(rest);
+        //robot.moveForwardInches(37, speed);
+        //sleep(rest);
 
-        robot.moveBackwardInches(34, speed);
-        sleep(rest);
+        //robot.moveBackwardInches(34, speed);
+        //sleep(rest);
 
         robot.turnRightDegrees(90, 0.75);
         sleep(rest);

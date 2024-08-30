@@ -91,16 +91,17 @@ public class Spark {
     static final double HOOK_UP_POSITION = 0.42;
        
     /**
-     * Encoder ticks for an INCH moving FORWARD and BACKWARD
-     * A good way to get this value is to run a test auton that moves forward for 500? ticks and then measure the distance.
+     * Encoder ticks for an INCH of movement
+     * A good way to get this value is to run a test auton that moves forward for 500 ticks and then measure the distance.
      */
-    static final double Y_INCH_TICKS = 40;
+    static final double INCH_TICKS = 40;
 
     /**
-     * Encoder ticks for an INCH moving FORWARD and BACKWARD
-     * A good way to get this value is to run a test auton that moves left for 500? ticks and then measure the distance.
+     * Encoder ticks for turning 90 degrees
+     * May take some trial and error to get this value
      */
-    static final double X_INCH_TICKS = 40;
+    static final double NINETY_DEGREE_TICKS = 500;
+
 
     /**
      * The CONSTRUCTOR for the library class. This constructor pulls the HardwareMap from the opmode
@@ -220,9 +221,9 @@ public class Spark {
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All motors should move the robot forward if set to power 1
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 //Lights :D
                 lights = hwMap.get(RevBlinkinLedDriver.class, "lights");
@@ -272,6 +273,9 @@ public class Spark {
                 //Next, reverse motors that need to spin the other direction
                 // Tip: All motors should move the robot forward if set to power 1
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+                //motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 //Here would go any additional hardware devices for the robot
@@ -283,14 +287,14 @@ public class Spark {
                 //Check the direction that the logo is facing.
                 //Check the direction that the USB plugs are facing
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT)
+                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP)
                 );
 
                 imu.initialize( parameters );
 
                 //camera setup!
-                webcamName = hwMap.get(WebcamName.class, "Webcam 1");
+                //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
                 break;
@@ -327,52 +331,22 @@ public class Spark {
      */
     public void move( double x, double y, double turn ) {
 
-        switch ( drive ) {
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio, but only when
+        // at least one is out of the range [-1, 1]`
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
-            case MECHANUM:
+        // Save values for the power of each motor
+        double frontLeftPower = ( y + x + turn ) / denominator;
+        double backLeftPower = ( y - x + turn ) / denominator;
+        double frontRightPower = ( y - x - turn ) / denominator;
+        double backRightPower = ( y + x - turn ) / denominator;
 
-                // Denominator is the largest motor power (absolute value) or 1
-                // This ensures all the powers maintain the same ratio, but only when
-                // at least one is out of the range [-1, 1]`
-                double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
-
-                // Save values for the power of each motor
-                double frontLeftPower = ( y + x + turn ) / denominator;
-                double backLeftPower = ( y - x + turn ) / denominator;
-                double frontRightPower = ( y - x - turn ) / denominator;
-                double backRightPower = ( y + x - turn ) / denominator;
-
-                //Now, assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
-
-                break;
-
-
-            case TEST:
-
-                // Denominator is the largest motor power (absolute value) or 1
-                // This ensures all the powers maintain the same ratio, but only when
-                // at least one is out of the range [-1, 1]`
-                denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
-
-                // Save values for the power of each motor
-                frontLeftPower = ( y + x + turn ) / denominator;
-                backLeftPower = ( y - x + turn ) / denominator;
-                frontRightPower = ( y - x - turn ) / denominator;
-                backRightPower = ( y + x - turn ) / denominator;
-
-                //Now, assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
-
-                break;
-
-        }
+        //Now, assign that motor power to each motor
+        motorFrontLeft.setPower( frontLeftPower );
+        motorBackLeft.setPower( backLeftPower );
+        motorFrontRight.setPower( frontRightPower );
+        motorBackRight.setPower( backRightPower );
 
     }
 
@@ -470,7 +444,7 @@ public class Spark {
     }
 
     public void openClawR() {
-        clawServoR.setPosition(0.4);
+        clawServoR.setPosition(0.3);
     }
 
     public void closeClawR() {
@@ -506,7 +480,7 @@ public class Spark {
        revolveServo.setPower(power);
     }
 
-    public void turnRightDegrees( double degrees, double speed ) {
+    /*public void turnRightDegrees( double degrees, double speed ) {
 
         //If this is turning in the wrong direction, swap the + to a - below
         double target = getHeading() + degrees;
@@ -533,24 +507,31 @@ public class Spark {
         //haha, I am using another function so I don't have to rewrite the code.
         turnRightDegrees( -degrees, -speed );
 
-    }
+    } */
 
     public void moveForwardInches( double inches, double speed ) {
 
         // Converts to integer by rounding. CASTS to int after rounding
-        int tickTarget = (int)Math.round( inches * Y_INCH_TICKS );
+        int tickTarget = (int)Math.round( inches * INCH_TICKS );
 
-        resetDriveEncoders();
 
         for ( DcMotor x: allDriveMotors ) {
 
             x.setTargetPosition( tickTarget );
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         }
 
         // Move forward. Think of this like a coordinate plane :)
         move( 0, speed, 0 );
+
+        for ( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+
 
         // Wait for motors to reach the desired tick level
         waitForMotors();
@@ -570,19 +551,30 @@ public class Spark {
     public void moveRightInches( double inches, double speed ) {
 
         // Converts to integer by rounding. CASTS to int after rounding
-        int tickTarget = (int)Math.round( inches * X_INCH_TICKS );
+        int tickTarget = (int)Math.round( inches * INCH_TICKS );
 
         resetDriveEncoders();
 
+        // Motor movement to go right
+        motorFrontLeft.setTargetPosition( tickTarget );
+        motorFrontRight.setTargetPosition( -tickTarget );
+        motorBackLeft.setTargetPosition( -tickTarget );
+        motorBackRight.setTargetPosition( tickTarget );
+
         for( DcMotor x: allDriveMotors ) {
 
-            x.setTargetPosition( tickTarget );
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         }
 
         // Move right. Think of this like a coordinate plane :)
         move( speed, 0, 0 );
+
+        for ( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
 
         // Wait for motors to reach the desired tick level
         waitForMotors();
@@ -599,19 +591,59 @@ public class Spark {
 
     }
 
+    public void turnRightDegrees( int degrees, double speed ) {
+
+        // Converts to integer by rounding. CASTS to int after rounding
+        int tickTarget = (int)Math.round( degrees * ( NINETY_DEGREE_TICKS / 90 ) );
+
+        resetDriveEncoders();
+
+        // Motor movement to turn right
+        motorFrontLeft.setTargetPosition( tickTarget );
+        motorFrontRight.setTargetPosition( -tickTarget );
+        motorBackLeft.setTargetPosition( tickTarget );
+        motorBackRight.setTargetPosition( -tickTarget );
+
+        for( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        }
+
+        // Move right. Think of this like a coordinate plane :)
+        move(0 , 0, speed );
+
+        for ( DcMotor x: allDriveMotors ) {
+
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        // Wait for motors to reach the desired tick level
+        waitForMotors();
+
+        // Reset motors for normal movement
+        resetDriveEncoders();
+
+    }
+
+    public void turnLeftDegrees( int degrees, double speed ) {
+
+        turnRightDegrees(-degrees, -speed );
+
+    }
+
     public void waitForMotors(){ // This method safely loops while checking if the opmode is active.
         boolean finished = false;
         while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
-            for (DcMotor x : allDriveMotors) {
-                if (x.getCurrentPosition() >= x.getTargetPosition() + 2 || x.getCurrentPosition() <= x.getTargetPosition() - 2) {
-                    telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
-                    telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
-                    telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
-                    telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
-                    telem.update();
-                } else {
-                    finished = true;
-                }
+            if (motorFrontLeft.isBusy() || motorBackLeft.isBusy() || motorFrontRight.isBusy() || motorBackRight.isBusy()) {
+                telem.addData("front left encoder:", "%7d / % 7d", motorFrontLeft.getCurrentPosition(), motorFrontLeft.getTargetPosition());
+                telem.addData("back left encoder:", "%7d / % 7d", motorBackLeft.getCurrentPosition(), motorBackLeft.getTargetPosition());
+                telem.addData("front right encoder:", "%7d / % 7d", motorFrontRight.getCurrentPosition(), motorFrontRight.getTargetPosition());
+                telem.addData("back right encoder:", "%7d / % 7d", motorBackRight.getCurrentPosition(), motorBackRight.getTargetPosition());
+                telem.update();
+            } else {
+                finished = true;
             }
         }
     }
