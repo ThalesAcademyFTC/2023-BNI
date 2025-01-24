@@ -47,6 +47,7 @@ public class CompetitionTeleop extends OpMode {
         telemetry.addData( "RightClaw0Postion", robot.clawServoR.getPosition());
         telemetry.addData( "LeftClaw0Postion", robot.clawServoL.getPosition());
         telemetry.addData("DroneMotor", robot.droneMotor.getPower());
+        telemetry.addData("AngleServo", robot.angleServo.getPosition());
 
         telemetry.update();
 

@@ -437,15 +437,15 @@ public class Spark {
     //}
 
     public void tiltClaw() {
-        angleServo.setPosition( 0.4 );
+        angleServo.setPosition( 0.8 );
     }
 
     public void resetClaw() {
-        angleServo.setPosition( 0.46 );
+        angleServo.setPosition( 0.5 );
     }
 
     public void openClawL() {
-        clawServoL.setPosition(0.6);
+        clawServoL.setPosition(0.725);
     }
 
     public void openClawR() {

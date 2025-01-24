@@ -36,6 +36,8 @@ public class RedShortAuton extends LinearOpMode {
 
         //code below makes the robot move forward, scan for the spike mark, and places purple pixel
 
+        robot.closeClawL();
+        robot.closeClawR();
         robot.turnLeftDegrees(90, speed);
         sleep(rest);
 

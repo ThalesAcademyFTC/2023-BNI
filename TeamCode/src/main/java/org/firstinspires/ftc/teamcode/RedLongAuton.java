@@ -77,6 +77,8 @@ public class RedLongAuton extends LinearOpMode {
         //robot.moveBackwardInches(34, speed);
         //sleep(rest);
 
+        robot.closeClawL();
+        robot.closeClawR();
         robot.turnLeftDegrees(90, speed);
         sleep(rest);
 
